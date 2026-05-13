@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Deteksi Penyakit Cabai</string>
+
+    <!-- Status -->
+    <string name="status_detecting">🔍 Mendeteksi…</string>
+    <string name="status_paused">⏸ Dijeda</string>
+    <string name="status_healthy">✅ Tanaman Sehat</string>
+    <string name="status_disease">⚠️ Penyakit Terdeteksi!</string>
+    <string name="status_error">❌ Error model</string>
+    <string name="status_initializing">🔍 Menginisialisasi…</string>
+
+    <!-- Tombol -->
+    <string name="btn_flash">🔦 Flash</string>
+    <string name="btn_flash_on">💡 Flash On</string>
+    <string name="btn_pause">⏸ Pause</string>
+    <string name="btn_resume">▶ Resume</string>
+    <string name="btn_history">📋</string>
+    <string name="no_flash">Perangkat tidak memiliki flash</string>
+
+    <!-- Format -->
+    <string name="fps_format">%.0f FPS</string>
+
+    <!-- Dialog info penyakit -->
+    <string name="dialog_info_title">Informasi Penyakit Cabai</string>
+    <string name="dialog_info_message">PANDUAN DETEKSI PENYAKIT CABAI\n\nSEHAT\nTanaman dalam kondisi normal.\n\nANTRAKNOSA (PATEK)\nPenyebab: Jamur Colletotrichum sp.\nGejala: Bercak hitam cekung pada buah.\nPenanganan: Fungisida mankozeb atau klorotalonil.\n\nLAYU FUSARIUM\nPenyebab: Jamur Fusarium oxysporum.\nGejala: Daun menguning, layu mendadak.\nPenanganan: Fungisida sistemik, rotasi tanaman.\n\nTips: Arahkan kamera ke daun atau buah dengan pencahayaan yang cukup.</string>
+    <string name="dialog_close">Tutup</string>
+
+    <!-- Permission -->
+    <string name="permission_required_title">Izin Kamera Diperlukan</string>
+    <string name="permission_required_message">Aplikasi memerlukan akses kamera untuk mendeteksi penyakit cabai secara real-time. Mohon aktifkan izin kamera di pengaturan aplikasi.</string>
+    <string name="permission_settings">Buka Pengaturan</string>
+
+    <!-- History -->
+    <string name="history_title">Riwayat Deteksi</string>
+    <string name="history_empty">Belum ada riwayat deteksi.\nArahkan kamera ke tanaman cabai untuk memulai.</string>
+    <string name="history_clear_confirm_title">Hapus Riwayat</string>
+    <string name="history_clear_confirm_message">Semua riwayat deteksi akan dihapus permanen. Lanjutkan?</string>
+    <string name="history_clear_yes">Hapus Semua</string>
+
+    <!-- Penyakit -->
+    <string name="disease_healthy">Sehat</string>
+    <string name="disease_anthracnose">Antraknosa (Patek)</string>
+    <string name="disease_fusarium">Layu Fusarium</string>
+
+    <!-- Error -->
+    <string name="error_model_not_found">File model TFLite tidak ditemukan di folder assets/</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Pengaturan</string>
+
+    <!-- History export -->
+    <string name="history_export">Ekspor CSV</string>
+    <string name="history_export_success">Riwayat berhasil diekspor</string>
+    <string name="history_export_empty">Tidak ada riwayat untuk diekspor</string>
+
+    <!-- Photo Analysis (Fitur Baru) -->
+    <string name="photo_analysis_title">Analisis Foto</string>
+    <string name="btn_open_gallery">&#128193; Dari Galeri</string>
+    <string name="btn_take_photo">&#128247; Ambil Foto</string>
+    <string name="photo_hint">Pilih foto dari galeri atau ambil foto baru</string>
+    <string name="analyzing">Menganalisis foto...</string>
+    <string name="no_disease_detected">&#10003; Tidak ada penyakit yang terdeteksi</string>
+    <string name="inference_time">Waktu analisis: %1$dms</string>
+    <string name="share_photo_result">Bagikan Foto Hasil</string>
+    <string name="save_to_gallery">Tersimpan di Galeri/ChiliDetector</string>
+    <string name="md_theme_light_primary_color">#4CAF50</string>
+
+</resources>

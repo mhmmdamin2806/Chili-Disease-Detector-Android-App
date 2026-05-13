@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- ══════════════════════════════════
+         KATEGORI: Model ML
+         ══════════════════════════════════ -->
+    <PreferenceCategory
+        android:title="Model Machine Learning"
+        android:icon="@android:drawable/ic_menu_manage">
+
+        <!-- Jenis model -->
+        <ListPreference
+            android:key="model_type"
+            android:title="Jenis Model"
+            android:summary="SSD MobileNet (320×320)"
+            android:entries="@array/model_type_entries"
+            android:entryValues="@array/model_type_values"
+            android:defaultValue="ssd"
+            app:useSimpleSummaryProvider="false" />
+
+        <!-- Confidence threshold (30–90%) -->
+        <SeekBarPreference
+            android:key="confidence_threshold"
+            android:title="Ambang Batas Akurasi"
+            android:summary="Minimum akurasi: 45%"
+            android:defaultValue="45"
+            android:min="20"
+            android:max="90"
+            app:showSeekBarValue="true" />
+
+        <!-- GPU Delegate -->
+        <SwitchPreferenceCompat
+            android:key="use_gpu"
+            android:title="Akselerasi GPU"
+            android:summary="Gunakan GPU Delegate TFLite (lebih cepat di perangkat yang mendukung)"
+            android:defaultValue="false" />
+
+    </PreferenceCategory>
+
+    <!-- ══════════════════════════════════
+         KATEGORI: Kamera
+         ══════════════════════════════════ -->
+    <PreferenceCategory
+        android:title="Kamera"
+        android:icon="@android:drawable/ic_menu_camera">
+
+        <!-- Interval inferensi (ms) -->
+        <SeekBarPreference
+            android:key="inference_interval"
+            android:title="Interval Deteksi"
+            android:summary="Interval: 80ms (~12 FPS)"
+            android:defaultValue="80"
+            android:min="50"
+            android:max="500"
+            app:showSeekBarValue="true" />
+
+    </PreferenceCategory>
+
+    <!-- ══════════════════════════════════
+         KATEGORI: Notifikasi & Riwayat
+         ══════════════════════════════════ -->
+    <PreferenceCategory
+        android:title="Notifikasi dan Riwayat"
+        android:icon="@android:drawable/ic_dialog_info">
+
+        <!-- Aktifkan notifikasi peringatan penyakit -->
+        <SwitchPreferenceCompat
+            android:key="enable_notifications"
+            android:title="Notifikasi Penyakit"
+            android:summary="Kirim peringatan saat penyakit terdeteksi dengan akurasi ≥80%"
+            android:defaultValue="true" />
+
+        <!-- Simpan ke riwayat -->
+        <SwitchPreferenceCompat
+            android:key="save_history"
+            android:title="Simpan Riwayat Deteksi"
+            android:summary="Simpan setiap deteksi ke riwayat lokal"
+            android:defaultValue="true" />
+
+    </PreferenceCategory>
+
+    <!-- ══════════════════════════════════
+         KATEGORI: Tentang
+         ══════════════════════════════════ -->
+    <PreferenceCategory
+        android:title="Tentang Aplikasi">
+
+        <Preference
+            android:key="about_version"
+            android:title="Versi Aplikasi"
+            android:summary="1.0.0 — Deteksi Penyakit Cabai" />
+
+        <Preference
+            android:key="about_model"
+            android:title="Informasi Model"
+            android:summary="TFLite + CameraX — Antraknosa &amp; Layu Fusarium" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

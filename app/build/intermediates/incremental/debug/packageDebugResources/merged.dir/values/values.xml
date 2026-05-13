@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+    <string-array name="model_type_entries">
+        <item>MobileNet V4 (224×224) — Direkomendasikan</item>
+        <item>Teachable Machine (224×224) — Klasifikasi</item>
+        <item>SSD MobileNet (320×320) — Object Detection</item>
+        <item>YOLOv8 (640×640) — Object Detection</item>
+    </string-array>
+    <string-array name="model_type_values">
+        <item>mobilenetv4</item>
+        <item>teachable</item>
+        <item>ssd</item>
+        <item>yolov8</item>
+    </string-array>
+    <color name="black">#FF000000</color>
+    <color name="color_anthracnose">#CCFF6D00</color>
+    <color name="color_fusarium">#CCD50000</color>
+    <color name="color_healthy">#CC00C853</color>
+    <color name="color_unknown">#CC6200EA</color>
+    <color name="md_theme_dark_primary">#81C784</color>
+    <color name="md_theme_dark_secondary">#FFAB91</color>
+    <color name="md_theme_light_primary">#4CAF50</color>
+    <color name="md_theme_light_secondary">#FF5722</color>
+    <color name="transparent_black">#99000000</color>
+    <color name="transparent_white">#33FFFFFF</color>
+    <color name="transparent_white_dark">#55FFFFFF</color>
+    <color name="white">#FFFFFFFF</color>
+    <dimen name="bottom_bar_padding_bottom">32dp</dimen>
+    <dimen name="box_corner_length">30dp</dimen>
+    <dimen name="box_corner_stroke">8dp</dimen>
+    <dimen name="box_stroke_width">4dp</dimen>
+    <dimen name="card_corner_radius">18dp</dimen>
+    <dimen name="card_elevation">8dp</dimen>
+    <dimen name="card_margin_horizontal">16dp</dimen>
+    <dimen name="label_corner_radius">6dp</dimen>
+    <dimen name="label_padding">10dp</dimen>
+    <dimen name="label_text_size">14sp</dimen>
+    <dimen name="record_button_size">60dp</dimen>
+    <dimen name="spacing_lg">24dp</dimen>
+    <dimen name="spacing_md">16dp</dimen>
+    <dimen name="spacing_sm">8dp</dimen>
+    <dimen name="spacing_xl">32dp</dimen>
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="status_badge_corner">20dp</dimen>
+    <dimen name="status_badge_padding_horizontal">16dp</dimen>
+    <dimen name="status_badge_padding_vertical">7dp</dimen>
+    <dimen name="text_app_title">16sp</dimen>
+    <dimen name="text_confidence">16sp</dimen>
+    <dimen name="text_description">13sp</dimen>
+    <dimen name="text_disease_name">18sp</dimen>
+    <dimen name="text_fps">12sp</dimen>
+    <dimen name="text_status">13sp</dimen>
+    <string name="analyzing">Menganalisis foto...</string>
+    <string name="app_name">Deteksi Penyakit Cabai</string>
+    <string name="btn_flash">🔦 Flash</string>
+    <string name="btn_flash_on">💡 Flash On</string>
+    <string name="btn_history">📋</string>
+    <string name="btn_open_gallery">📁 Dari Galeri</string>
+    <string name="btn_pause">⏸ Pause</string>
+    <string name="btn_resume">▶ Resume</string>
+    <string name="btn_take_photo">📷 Ambil Foto</string>
+    <string name="dialog_close">Tutup</string>
+    <string name="dialog_info_message">PANDUAN DETEKSI PENYAKIT CABAI\n\nSEHAT\nTanaman dalam kondisi normal.\n\nANTRAKNOSA (PATEK)\nPenyebab: Jamur Colletotrichum sp.\nGejala: Bercak hitam cekung pada buah.\nPenanganan: Fungisida mankozeb atau klorotalonil.\n\nLAYU FUSARIUM\nPenyebab: Jamur Fusarium oxysporum.\nGejala: Daun menguning, layu mendadak.\nPenanganan: Fungisida sistemik, rotasi tanaman.\n\nTips: Arahkan kamera ke daun atau buah dengan pencahayaan yang cukup.</string>
+    <string name="dialog_info_title">Informasi Penyakit Cabai</string>
+    <string name="disease_anthracnose">Antraknosa (Patek)</string>
+    <string name="disease_fusarium">Layu Fusarium</string>
+    <string name="disease_healthy">Sehat</string>
+    <string name="error_model_not_found">File model TFLite tidak ditemukan di folder assets/</string>
+    <string name="fps_format">%.0f FPS</string>
+    <string name="history_clear_confirm_message">Semua riwayat deteksi akan dihapus permanen. Lanjutkan?</string>
+    <string name="history_clear_confirm_title">Hapus Riwayat</string>
+    <string name="history_clear_yes">Hapus Semua</string>
+    <string name="history_empty">Belum ada riwayat deteksi.\nArahkan kamera ke tanaman cabai untuk memulai.</string>
+    <string name="history_export">Ekspor CSV</string>
+    <string name="history_export_empty">Tidak ada riwayat untuk diekspor</string>
+    <string name="history_export_success">Riwayat berhasil diekspor</string>
+    <string name="history_title">Riwayat Deteksi</string>
+    <string name="inference_time">Waktu analisis: %1$dms</string>
+    <string name="md_theme_light_primary_color">#4CAF50</string>
+    <string name="no_disease_detected">✓ Tidak ada penyakit yang terdeteksi</string>
+    <string name="no_flash">Perangkat tidak memiliki flash</string>
+    <string name="permission_required_message">Aplikasi memerlukan akses kamera untuk mendeteksi penyakit cabai secara real-time. Mohon aktifkan izin kamera di pengaturan aplikasi.</string>
+    <string name="permission_required_title">Izin Kamera Diperlukan</string>
+    <string name="permission_settings">Buka Pengaturan</string>
+    <string name="photo_analysis_title">Analisis Foto</string>
+    <string name="photo_hint">Pilih foto dari galeri atau ambil foto baru</string>
+    <string name="save_to_gallery">Tersimpan di Galeri/ChiliDetector</string>
+    <string name="settings_title">Pengaturan</string>
+    <string name="share_photo_result">Bagikan Foto Hasil</string>
+    <string name="status_detecting">🔍 Mendeteksi…</string>
+    <string name="status_disease">⚠️ Penyakit Terdeteksi!</string>
+    <string name="status_error">❌ Error model</string>
+    <string name="status_healthy">✅ Tanaman Sehat</string>
+    <string name="status_initializing">🔍 Menginisialisasi…</string>
+    <string name="status_paused">⏸ Dijeda</string>
+    <style name="StatusBadge">
+        <item name="android:background">@drawable/bg_status_badge</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingBottom">7dp</item>
+    </style>
+    <style name="Theme.ChiliDisease" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="colorPrimary">#4CAF50</item>
+        <item name="colorPrimaryVariant">#2E7D32</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="colorSecondary">#FF5722</item>
+        <item name="colorSurface">#121212</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" ns1:targetApi="27">shortEdges</item>
+    </style>
+    <style name="Theme.ChiliDisease.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@drawable/bg_splash</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="ThemeOverlay.MaterialComponents.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+</resources>

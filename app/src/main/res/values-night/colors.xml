@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Warna Penyakit (sama untuk dark mode, sudah cukup kontras) -->
+    <color name="color_healthy">#CC00C853</color>
+    <color name="color_anthracnose">#CCFF6D00</color>
+    <color name="color_fusarium">#CCD50000</color>
+    <color name="color_unknown">#CC6200EA</color>
+
+    <!-- Surface warna dark mode -->
+    <color name="transparent_white">#33FFFFFF</color>
+    <color name="transparent_white_dark">#55FFFFFF</color>
+</resources>

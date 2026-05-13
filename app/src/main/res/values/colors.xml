@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Warna dasar -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Warna per kelas penyakit cabai -->
+    <color name="color_healthy">#CC00C853</color>
+    <color name="color_anthracnose">#CCFF6D00</color>
+    <color name="color_fusarium">#CCD50000</color>
+    <color name="color_unknown">#CC6200EA</color>
+
+    <!-- Warna transparan untuk UI kamera -->
+    <color name="transparent_white">#33FFFFFF</color>
+    <color name="transparent_white_dark">#55FFFFFF</color>
+    <color name="transparent_black">#99000000</color>
+
+    <!-- Material Design accents -->
+    <color name="md_theme_light_primary">#4CAF50</color>
+    <color name="md_theme_light_secondary">#FF5722</color>
+    <color name="md_theme_dark_primary">#81C784</color>
+    <color name="md_theme_dark_secondary">#FFAB91</color>
+</resources>

@@ -1,0 +1,47 @@
+# ============================================================
+# chili_disease.yaml
+# Konfigurasi dataset YOLOv8 untuk deteksi penyakit cabai
+# ============================================================
+
+# Path dataset (sesuaikan dengan lokasi Anda)
+path: ./dataset
+
+# Subfolder gambar
+train: images/train   # 80% data
+val:   images/val     # 20% data
+
+# Jumlah kelas
+nc: 3
+
+# Nama kelas (urutan harus sama dengan labels.txt di Android!)
+names:
+  0: Sehat
+  1: Antraknosa (Patek)
+  2: Layu Fusarium
+
+# ============================================================
+# Struktur folder dataset yang diharapkan:
+# ============================================================
+# dataset/
+# ├── images/
+# │   ├── train/
+# │   │   ├── cabai_sehat_001.jpg
+# │   │   ├── cabai_patek_001.jpg
+# │   │   └── ...
+# │   └── val/
+# │       ├── cabai_sehat_050.jpg
+# │       └── ...
+# └── labels/
+#     ├── train/
+#     │   ├── cabai_sehat_001.txt   ← anotasi YOLO format
+#     │   └── ...
+#     └── val/
+#         └── ...
+#
+# Format anotasi YOLO (per baris):
+# <class_id> <cx> <cy> <w> <h>
+# Semua nilai dinormalisasi 0.0 - 1.0
+#
+# Contoh: bercak antraknosa di tengah gambar
+# 1 0.512 0.489 0.234 0.198
+# ============================================================

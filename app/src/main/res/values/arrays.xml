@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Entries untuk ListPreference jenis model -->
+    <string-array name="model_type_entries">
+        <item>MobileNet V4 (224×224) — Direkomendasikan</item>
+        <item>Teachable Machine (224×224) — Klasifikasi</item>
+        <item>SSD MobileNet (320×320) — Object Detection</item>
+        <item>YOLOv8 (640×640) — Object Detection</item>
+    </string-array>
+
+    <string-array name="model_type_values">
+        <item>mobilenetv4</item>
+        <item>teachable</item>
+        <item>ssd</item>
+        <item>yolov8</item>
+    </string-array>
+</resources>

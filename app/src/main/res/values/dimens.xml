@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Spacing -->
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_sm">8dp</dimen>
+    <dimen name="spacing_md">16dp</dimen>
+    <dimen name="spacing_lg">24dp</dimen>
+    <dimen name="spacing_xl">32dp</dimen>
+
+    <!-- Overlay bounding box -->
+    <dimen name="box_stroke_width">4dp</dimen>
+    <dimen name="box_corner_length">30dp</dimen>
+    <dimen name="box_corner_stroke">8dp</dimen>
+    <dimen name="label_text_size">14sp</dimen>
+    <dimen name="label_padding">10dp</dimen>
+    <dimen name="label_corner_radius">6dp</dimen>
+
+    <!-- Result card -->
+    <dimen name="card_corner_radius">18dp</dimen>
+    <dimen name="card_elevation">8dp</dimen>
+    <dimen name="card_margin_horizontal">16dp</dimen>
+
+    <!-- Bottom bar -->
+    <dimen name="bottom_bar_padding_bottom">32dp</dimen>
+    <dimen name="record_button_size">60dp</dimen>
+
+    <!-- Status badge -->
+    <dimen name="status_badge_corner">20dp</dimen>
+    <dimen name="status_badge_padding_horizontal">16dp</dimen>
+    <dimen name="status_badge_padding_vertical">7dp</dimen>
+
+    <!-- Typography -->
+    <dimen name="text_disease_name">18sp</dimen>
+    <dimen name="text_confidence">16sp</dimen>
+    <dimen name="text_description">13sp</dimen>
+    <dimen name="text_status">13sp</dimen>
+    <dimen name="text_fps">12sp</dimen>
+    <dimen name="text_app_title">16sp</dimen>
+</resources>
