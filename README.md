@@ -103,7 +103,7 @@ Model **tidak disertakan** di repo karena ukuran file. Buat sendiri dengan salah
 #### Opsi A — Google Teachable Machine (5 menit, paling mudah)
 
 1. Buka https://teachablemachine.withgoogle.com/train/image
-2. Buat 3 kelas: `Sehat` · `Antraknosa (Patek)` · `Layu Fusarium` , `Lalat Buah`
+2. Buat 4 kelas: `Sehat` · `Antraknosa (Patek)` · `Layu Fusarium` , `Lalat Buah`
 3. Upload minimal 50 foto per kelas
 4. Klik **Train Model**
 5. Klik **Export Model** → **TensorFlow Lite** → pilih **Quantized** → **Download**
