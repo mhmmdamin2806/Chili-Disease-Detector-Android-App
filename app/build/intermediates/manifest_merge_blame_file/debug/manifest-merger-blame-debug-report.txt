@@ -43,277 +43,280 @@
 31-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:23:9-65
 32        android:maxSdkVersion="28" />
 32-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:24:9-35
-33
-34    <uses-feature
-34-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:26:5-93
-35        android:name="android.hardware.camera"
-35-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:26:19-57
-36        android:required="true" />
-36-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:26:67-90
-37    <uses-feature
-37-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:27:5-95
-38        android:name="android.hardware.camera.autofocus"
-38-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:27:19-67
-39        android:required="false" />
-39-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:27:68-92
-40
-41    <queries>
-41-->[androidx.camera:camera-extensions:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\665dcb671570cfae42f79f9d6e00f9d8\transformed\jetified-camera-extensions-1.3.1\AndroidManifest.xml:22:5-26:15
-42        <intent>
-42-->[androidx.camera:camera-extensions:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\665dcb671570cfae42f79f9d6e00f9d8\transformed\jetified-camera-extensions-1.3.1\AndroidManifest.xml:23:9-25:18
-43            <action android:name="androidx.camera.extensions.action.VENDOR_ACTION" />
-43-->[androidx.camera:camera-extensions:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\665dcb671570cfae42f79f9d6e00f9d8\transformed\jetified-camera-extensions-1.3.1\AndroidManifest.xml:24:13-86
-43-->[androidx.camera:camera-extensions:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\665dcb671570cfae42f79f9d6e00f9d8\transformed\jetified-camera-extensions-1.3.1\AndroidManifest.xml:24:21-83
-44        </intent>
-45    </queries>
-46
-47    <permission
-47-->[androidx.core:core:1.12.0] C:\Users\mhmmd\.gradle\caches\transforms-3\217cd4443c329c3de6d6b6409afab4f6\transformed\core-1.12.0\AndroidManifest.xml:22:5-24:47
-48        android:name="com.example.chilidisease.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-48-->[androidx.core:core:1.12.0] C:\Users\mhmmd\.gradle\caches\transforms-3\217cd4443c329c3de6d6b6409afab4f6\transformed\core-1.12.0\AndroidManifest.xml:23:9-81
-49        android:protectionLevel="signature" />
-49-->[androidx.core:core:1.12.0] C:\Users\mhmmd\.gradle\caches\transforms-3\217cd4443c329c3de6d6b6409afab4f6\transformed\core-1.12.0\AndroidManifest.xml:24:9-44
-50
-51    <uses-permission android:name="com.example.chilidisease.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-51-->[androidx.core:core:1.12.0] C:\Users\mhmmd\.gradle\caches\transforms-3\217cd4443c329c3de6d6b6409afab4f6\transformed\core-1.12.0\AndroidManifest.xml:26:5-97
-51-->[androidx.core:core:1.12.0] C:\Users\mhmmd\.gradle\caches\transforms-3\217cd4443c329c3de6d6b6409afab4f6\transformed\core-1.12.0\AndroidManifest.xml:26:22-94
-52
-53    <application
-53-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:29:5-103:19
-54        android:allowBackup="true"
-54-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:30:9-35
-55        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-55-->[androidx.core:core:1.12.0] C:\Users\mhmmd\.gradle\caches\transforms-3\217cd4443c329c3de6d6b6409afab4f6\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
-56        android:dataExtractionRules="@xml/data_extraction_rules"
-56-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:31:9-65
-57        android:debuggable="true"
-58        android:extractNativeLibs="false"
-59        android:fullBackupContent="@xml/backup_rules"
-59-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:32:9-54
-60        android:icon="@mipmap/ic_launcher"
-60-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:33:9-43
-61        android:label="@string/app_name"
-61-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:34:9-41
-62        android:roundIcon="@mipmap/ic_launcher_round"
-62-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:35:9-54
-63        android:supportsRtl="true"
-63-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:36:9-35
-64        android:testOnly="true"
-65        android:theme="@style/Theme.ChiliDisease" >
-65-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:37:9-50
-66
-67        <!-- 1. Splash Screen (Launcher) -->
-68        <activity
-68-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:41:9-50:20
-69            android:name="com.example.chilidisease.SplashActivity"
-69-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:42:13-43
-70            android:exported="true"
-70-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:43:13-36
-71            android:screenOrientation="portrait"
-71-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:44:13-49
-72            android:theme="@style/Theme.ChiliDisease.Splash" >
-72-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:45:13-61
-73            <intent-filter>
-73-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:46:13-49:29
-74                <action android:name="android.intent.action.MAIN" />
-74-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:47:17-69
-74-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:47:25-66
-75
-76                <category android:name="android.intent.category.LAUNCHER" />
-76-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:48:17-77
-76-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:48:27-74
-77            </intent-filter>
-78        </activity>
-79
-80        <!-- 2. Kamera Real-time + Deteksi -->
-81        <activity
-81-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:53:9-57:58
-82            android:name="com.example.chilidisease.MainActivity"
-82-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:54:13-41
-83            android:exported="false"
-83-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:55:13-37
-84            android:screenOrientation="portrait"
-84-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:56:13-49
-85            android:windowSoftInputMode="adjustResize" />
-85-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:57:13-55
-86
-87        <!-- 3. Analisis Foto (galeri / ambil foto) — FITUR BARU -->
-88        <activity
-88-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:60:9-68:20
-89            android:name="com.example.chilidisease.PhotoAnalysisActivity"
-89-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:61:13-50
-90            android:exported="false"
-90-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:62:13-37
-91            android:parentActivityName="com.example.chilidisease.MainActivity"
-91-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:64:13-55
-92            android:screenOrientation="portrait" >
-92-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:63:13-49
-93            <meta-data
-93-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:65:13-67:49
-94                android:name="android.support.PARENT_ACTIVITY"
-94-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:66:17-63
-95                android:value=".MainActivity" />
-95-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:67:17-46
-96        </activity>
-97
-98        <!-- 4. Riwayat Deteksi -->
-99        <activity
-99-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:71:9-79:20
-100            android:name="com.example.chilidisease.DetectionHistoryActivity"
-100-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:72:13-53
-101            android:exported="false"
-101-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:73:13-37
-102            android:parentActivityName="com.example.chilidisease.MainActivity"
-102-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:75:13-55
-103            android:screenOrientation="portrait" >
-103-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:74:13-49
-104            <meta-data
-104-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:65:13-67:49
-105                android:name="android.support.PARENT_ACTIVITY"
-105-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:66:17-63
-106                android:value=".MainActivity" />
-106-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:67:17-46
-107        </activity>
-108
-109        <!-- 5. Pengaturan -->
-110        <activity
-110-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:82:9-90:20
-111            android:name="com.example.chilidisease.SettingsActivity"
-111-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:83:13-45
-112            android:exported="false"
-112-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:84:13-37
-113            android:parentActivityName="com.example.chilidisease.MainActivity"
-113-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:86:13-55
-114            android:screenOrientation="portrait" >
-114-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:85:13-49
-115            <meta-data
-115-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:65:13-67:49
-116                android:name="android.support.PARENT_ACTIVITY"
-116-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:66:17-63
-117                android:value=".MainActivity" />
-117-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:67:17-46
-118        </activity>
-119
-120        <!-- FileProvider: share foto hasil analisis + ekspor CSV -->
-121        <provider
-121-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:93:9-101:20
-122            android:name="androidx.core.content.FileProvider"
-122-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:94:13-62
-123            android:authorities="com.example.chilidisease.fileprovider"
-123-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:95:13-72
-124            android:exported="false"
-124-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:96:13-37
-125            android:grantUriPermissions="true" >
-125-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:97:13-47
-126            <meta-data
-126-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:98:13-100:63
-127                android:name="android.support.FILE_PROVIDER_PATHS"
-127-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:99:17-67
-128                android:resource="@xml/file_provider_paths" />
-128-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:100:17-60
-129        </provider>
-130
-131        <uses-library
-131-->[androidx.camera:camera-extensions:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\665dcb671570cfae42f79f9d6e00f9d8\transformed\jetified-camera-extensions-1.3.1\AndroidManifest.xml:29:9-31:40
-132            android:name="androidx.camera.extensions.impl"
-132-->[androidx.camera:camera-extensions:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\665dcb671570cfae42f79f9d6e00f9d8\transformed\jetified-camera-extensions-1.3.1\AndroidManifest.xml:30:13-59
-133            android:required="false" />
-133-->[androidx.camera:camera-extensions:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\665dcb671570cfae42f79f9d6e00f9d8\transformed\jetified-camera-extensions-1.3.1\AndroidManifest.xml:31:13-37
-134
-135        <service
-135-->[androidx.camera:camera-camera2:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\73b9f868a29a2340a3f3351b5bd8963b\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:24:9-33:19
-136            android:name="androidx.camera.core.impl.MetadataHolderService"
-136-->[androidx.camera:camera-camera2:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\73b9f868a29a2340a3f3351b5bd8963b\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:25:13-75
-137            android:enabled="false"
-137-->[androidx.camera:camera-camera2:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\73b9f868a29a2340a3f3351b5bd8963b\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:26:13-36
-138            android:exported="false" >
-138-->[androidx.camera:camera-camera2:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\73b9f868a29a2340a3f3351b5bd8963b\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:27:13-37
-139            <meta-data
-139-->[androidx.camera:camera-camera2:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\73b9f868a29a2340a3f3351b5bd8963b\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:30:13-32:89
-140                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
-140-->[androidx.camera:camera-camera2:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\73b9f868a29a2340a3f3351b5bd8963b\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:31:17-103
-141                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
-141-->[androidx.camera:camera-camera2:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\73b9f868a29a2340a3f3351b5bd8963b\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:32:17-86
-142        </service>
-143
-144        <provider
-144-->[androidx.emoji2:emoji2:1.2.0] C:\Users\mhmmd\.gradle\caches\transforms-3\11131d099be9c123d2514ae5f1228212\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
-145            android:name="androidx.startup.InitializationProvider"
-145-->[androidx.emoji2:emoji2:1.2.0] C:\Users\mhmmd\.gradle\caches\transforms-3\11131d099be9c123d2514ae5f1228212\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
-146            android:authorities="com.example.chilidisease.androidx-startup"
-146-->[androidx.emoji2:emoji2:1.2.0] C:\Users\mhmmd\.gradle\caches\transforms-3\11131d099be9c123d2514ae5f1228212\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
-147            android:exported="false" >
-147-->[androidx.emoji2:emoji2:1.2.0] C:\Users\mhmmd\.gradle\caches\transforms-3\11131d099be9c123d2514ae5f1228212\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
-148            <meta-data
-148-->[androidx.emoji2:emoji2:1.2.0] C:\Users\mhmmd\.gradle\caches\transforms-3\11131d099be9c123d2514ae5f1228212\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
-149                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-149-->[androidx.emoji2:emoji2:1.2.0] C:\Users\mhmmd\.gradle\caches\transforms-3\11131d099be9c123d2514ae5f1228212\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
-150                android:value="androidx.startup" />
-150-->[androidx.emoji2:emoji2:1.2.0] C:\Users\mhmmd\.gradle\caches\transforms-3\11131d099be9c123d2514ae5f1228212\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
-151            <meta-data
-151-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\mhmmd\.gradle\caches\transforms-3\d2d75e56b3ef6b52e231fb5b652ef29f\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:29:13-31:52
-152                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-152-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\mhmmd\.gradle\caches\transforms-3\d2d75e56b3ef6b52e231fb5b652ef29f\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:30:17-78
-153                android:value="androidx.startup" />
-153-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\mhmmd\.gradle\caches\transforms-3\d2d75e56b3ef6b52e231fb5b652ef29f\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:31:17-49
-154            <meta-data
-154-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
-155                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-155-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
-156                android:value="androidx.startup" />
-156-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
-157        </provider>
-158
-159        <uses-library
-159-->[androidx.window:window:1.0.0] C:\Users\mhmmd\.gradle\caches\transforms-3\29e6f93e95e9d50473b75927bc24cd60\transformed\jetified-window-1.0.0\AndroidManifest.xml:25:9-27:40
-160            android:name="androidx.window.extensions"
-160-->[androidx.window:window:1.0.0] C:\Users\mhmmd\.gradle\caches\transforms-3\29e6f93e95e9d50473b75927bc24cd60\transformed\jetified-window-1.0.0\AndroidManifest.xml:26:13-54
-161            android:required="false" />
-161-->[androidx.window:window:1.0.0] C:\Users\mhmmd\.gradle\caches\transforms-3\29e6f93e95e9d50473b75927bc24cd60\transformed\jetified-window-1.0.0\AndroidManifest.xml:27:13-37
-162        <uses-library
-162-->[androidx.window:window:1.0.0] C:\Users\mhmmd\.gradle\caches\transforms-3\29e6f93e95e9d50473b75927bc24cd60\transformed\jetified-window-1.0.0\AndroidManifest.xml:28:9-30:40
-163            android:name="androidx.window.sidecar"
-163-->[androidx.window:window:1.0.0] C:\Users\mhmmd\.gradle\caches\transforms-3\29e6f93e95e9d50473b75927bc24cd60\transformed\jetified-window-1.0.0\AndroidManifest.xml:29:13-51
-164            android:required="false" />
-164-->[androidx.window:window:1.0.0] C:\Users\mhmmd\.gradle\caches\transforms-3\29e6f93e95e9d50473b75927bc24cd60\transformed\jetified-window-1.0.0\AndroidManifest.xml:30:13-37
-165
-166        <receiver
-166-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
-167            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-167-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
-168            android:directBootAware="false"
-168-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
-169            android:enabled="true"
-169-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
-170            android:exported="true"
-170-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
-171            android:permission="android.permission.DUMP" >
-171-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
-172            <intent-filter>
-172-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
-173                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-173-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
-173-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
-174            </intent-filter>
-175            <intent-filter>
-175-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
-176                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-176-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
-176-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
-177            </intent-filter>
-178            <intent-filter>
-178-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
-179                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-179-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
-179-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
-180            </intent-filter>
-181            <intent-filter>
-181-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
-182                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-182-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
-182-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
-183            </intent-filter>
-184        </receiver>
-185    </application>
-186
-187</manifest>
+33    <uses-permission android:name="android.permission.INTERNET" />
+33-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:26:5-67
+33-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:26:22-64
+34
+35    <uses-feature
+35-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:28:5-93
+36        android:name="android.hardware.camera"
+36-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:28:19-57
+37        android:required="true" />
+37-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:28:67-90
+38    <uses-feature
+38-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:29:5-95
+39        android:name="android.hardware.camera.autofocus"
+39-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:29:19-67
+40        android:required="false" />
+40-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:29:68-92
+41
+42    <queries>
+42-->[androidx.camera:camera-extensions:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\665dcb671570cfae42f79f9d6e00f9d8\transformed\jetified-camera-extensions-1.3.1\AndroidManifest.xml:22:5-26:15
+43        <intent>
+43-->[androidx.camera:camera-extensions:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\665dcb671570cfae42f79f9d6e00f9d8\transformed\jetified-camera-extensions-1.3.1\AndroidManifest.xml:23:9-25:18
+44            <action android:name="androidx.camera.extensions.action.VENDOR_ACTION" />
+44-->[androidx.camera:camera-extensions:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\665dcb671570cfae42f79f9d6e00f9d8\transformed\jetified-camera-extensions-1.3.1\AndroidManifest.xml:24:13-86
+44-->[androidx.camera:camera-extensions:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\665dcb671570cfae42f79f9d6e00f9d8\transformed\jetified-camera-extensions-1.3.1\AndroidManifest.xml:24:21-83
+45        </intent>
+46    </queries>
+47
+48    <permission
+48-->[androidx.core:core:1.12.0] C:\Users\mhmmd\.gradle\caches\transforms-3\217cd4443c329c3de6d6b6409afab4f6\transformed\core-1.12.0\AndroidManifest.xml:22:5-24:47
+49        android:name="com.example.chilidisease.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+49-->[androidx.core:core:1.12.0] C:\Users\mhmmd\.gradle\caches\transforms-3\217cd4443c329c3de6d6b6409afab4f6\transformed\core-1.12.0\AndroidManifest.xml:23:9-81
+50        android:protectionLevel="signature" />
+50-->[androidx.core:core:1.12.0] C:\Users\mhmmd\.gradle\caches\transforms-3\217cd4443c329c3de6d6b6409afab4f6\transformed\core-1.12.0\AndroidManifest.xml:24:9-44
+51
+52    <uses-permission android:name="com.example.chilidisease.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+52-->[androidx.core:core:1.12.0] C:\Users\mhmmd\.gradle\caches\transforms-3\217cd4443c329c3de6d6b6409afab4f6\transformed\core-1.12.0\AndroidManifest.xml:26:5-97
+52-->[androidx.core:core:1.12.0] C:\Users\mhmmd\.gradle\caches\transforms-3\217cd4443c329c3de6d6b6409afab4f6\transformed\core-1.12.0\AndroidManifest.xml:26:22-94
+53
+54    <application
+54-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:32:5-106:19
+55        android:allowBackup="true"
+55-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:33:9-35
+56        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+56-->[androidx.core:core:1.12.0] C:\Users\mhmmd\.gradle\caches\transforms-3\217cd4443c329c3de6d6b6409afab4f6\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
+57        android:dataExtractionRules="@xml/data_extraction_rules"
+57-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:34:9-65
+58        android:debuggable="true"
+59        android:extractNativeLibs="false"
+60        android:fullBackupContent="@xml/backup_rules"
+60-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:35:9-54
+61        android:icon="@mipmap/ic_launcher"
+61-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:36:9-43
+62        android:label="@string/app_name"
+62-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:37:9-41
+63        android:roundIcon="@mipmap/ic_launcher_round"
+63-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:38:9-54
+64        android:supportsRtl="true"
+64-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:39:9-35
+65        android:testOnly="true"
+66        android:theme="@style/Theme.ChiliDisease" >
+66-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:40:9-50
+67
+68        <!-- 1. Splash Screen (Launcher) -->
+69        <activity
+69-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:44:9-53:20
+70            android:name="com.example.chilidisease.SplashActivity"
+70-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:45:13-43
+71            android:exported="true"
+71-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:46:13-36
+72            android:screenOrientation="portrait"
+72-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:47:13-49
+73            android:theme="@style/Theme.ChiliDisease.Splash" >
+73-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:48:13-61
+74            <intent-filter>
+74-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:49:13-52:29
+75                <action android:name="android.intent.action.MAIN" />
+75-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:50:17-69
+75-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:50:25-66
+76
+77                <category android:name="android.intent.category.LAUNCHER" />
+77-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:51:17-77
+77-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:51:27-74
+78            </intent-filter>
+79        </activity>
+80
+81        <!-- 2. Kamera Real-time + Deteksi -->
+82        <activity
+82-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:56:9-60:58
+83            android:name="com.example.chilidisease.MainActivity"
+83-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:57:13-41
+84            android:exported="false"
+84-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:58:13-37
+85            android:screenOrientation="portrait"
+85-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:59:13-49
+86            android:windowSoftInputMode="adjustResize" />
+86-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:60:13-55
+87
+88        <!-- 3. Analisis Foto (galeri / ambil foto) — FITUR BARU -->
+89        <activity
+89-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:63:9-71:20
+90            android:name="com.example.chilidisease.PhotoAnalysisActivity"
+90-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:64:13-50
+91            android:exported="false"
+91-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:65:13-37
+92            android:parentActivityName="com.example.chilidisease.MainActivity"
+92-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:67:13-55
+93            android:screenOrientation="portrait" >
+93-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:66:13-49
+94            <meta-data
+94-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:68:13-70:49
+95                android:name="android.support.PARENT_ACTIVITY"
+95-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:69:17-63
+96                android:value=".MainActivity" />
+96-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:70:17-46
+97        </activity>
+98
+99        <!-- 4. Riwayat Deteksi -->
+100        <activity
+100-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:74:9-82:20
+101            android:name="com.example.chilidisease.DetectionHistoryActivity"
+101-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:75:13-53
+102            android:exported="false"
+102-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:76:13-37
+103            android:parentActivityName="com.example.chilidisease.MainActivity"
+103-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:78:13-55
+104            android:screenOrientation="portrait" >
+104-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:77:13-49
+105            <meta-data
+105-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:68:13-70:49
+106                android:name="android.support.PARENT_ACTIVITY"
+106-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:69:17-63
+107                android:value=".MainActivity" />
+107-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:70:17-46
+108        </activity>
+109
+110        <!-- 5. Pengaturan -->
+111        <activity
+111-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:85:9-93:20
+112            android:name="com.example.chilidisease.SettingsActivity"
+112-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:86:13-45
+113            android:exported="false"
+113-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:87:13-37
+114            android:parentActivityName="com.example.chilidisease.MainActivity"
+114-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:89:13-55
+115            android:screenOrientation="portrait" >
+115-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:88:13-49
+116            <meta-data
+116-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:68:13-70:49
+117                android:name="android.support.PARENT_ACTIVITY"
+117-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:69:17-63
+118                android:value=".MainActivity" />
+118-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:70:17-46
+119        </activity>
+120
+121        <!-- FileProvider: share foto hasil analisis + ekspor CSV -->
+122        <provider
+122-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:96:9-104:20
+123            android:name="androidx.core.content.FileProvider"
+123-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:97:13-62
+124            android:authorities="com.example.chilidisease.fileprovider"
+124-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:98:13-72
+125            android:exported="false"
+125-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:99:13-37
+126            android:grantUriPermissions="true" >
+126-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:100:13-47
+127            <meta-data
+127-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:101:13-103:63
+128                android:name="android.support.FILE_PROVIDER_PATHS"
+128-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:102:17-67
+129                android:resource="@xml/file_provider_paths" />
+129-->C:\Android\ChiliDiseaseDetector\app\src\main\AndroidManifest.xml:103:17-60
+130        </provider>
+131
+132        <uses-library
+132-->[androidx.camera:camera-extensions:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\665dcb671570cfae42f79f9d6e00f9d8\transformed\jetified-camera-extensions-1.3.1\AndroidManifest.xml:29:9-31:40
+133            android:name="androidx.camera.extensions.impl"
+133-->[androidx.camera:camera-extensions:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\665dcb671570cfae42f79f9d6e00f9d8\transformed\jetified-camera-extensions-1.3.1\AndroidManifest.xml:30:13-59
+134            android:required="false" />
+134-->[androidx.camera:camera-extensions:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\665dcb671570cfae42f79f9d6e00f9d8\transformed\jetified-camera-extensions-1.3.1\AndroidManifest.xml:31:13-37
+135
+136        <service
+136-->[androidx.camera:camera-camera2:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\73b9f868a29a2340a3f3351b5bd8963b\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:24:9-33:19
+137            android:name="androidx.camera.core.impl.MetadataHolderService"
+137-->[androidx.camera:camera-camera2:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\73b9f868a29a2340a3f3351b5bd8963b\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:25:13-75
+138            android:enabled="false"
+138-->[androidx.camera:camera-camera2:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\73b9f868a29a2340a3f3351b5bd8963b\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:26:13-36
+139            android:exported="false" >
+139-->[androidx.camera:camera-camera2:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\73b9f868a29a2340a3f3351b5bd8963b\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:27:13-37
+140            <meta-data
+140-->[androidx.camera:camera-camera2:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\73b9f868a29a2340a3f3351b5bd8963b\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:30:13-32:89
+141                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+141-->[androidx.camera:camera-camera2:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\73b9f868a29a2340a3f3351b5bd8963b\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:31:17-103
+142                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+142-->[androidx.camera:camera-camera2:1.3.1] C:\Users\mhmmd\.gradle\caches\transforms-3\73b9f868a29a2340a3f3351b5bd8963b\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:32:17-86
+143        </service>
+144
+145        <provider
+145-->[androidx.emoji2:emoji2:1.2.0] C:\Users\mhmmd\.gradle\caches\transforms-3\11131d099be9c123d2514ae5f1228212\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+146            android:name="androidx.startup.InitializationProvider"
+146-->[androidx.emoji2:emoji2:1.2.0] C:\Users\mhmmd\.gradle\caches\transforms-3\11131d099be9c123d2514ae5f1228212\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+147            android:authorities="com.example.chilidisease.androidx-startup"
+147-->[androidx.emoji2:emoji2:1.2.0] C:\Users\mhmmd\.gradle\caches\transforms-3\11131d099be9c123d2514ae5f1228212\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+148            android:exported="false" >
+148-->[androidx.emoji2:emoji2:1.2.0] C:\Users\mhmmd\.gradle\caches\transforms-3\11131d099be9c123d2514ae5f1228212\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+149            <meta-data
+149-->[androidx.emoji2:emoji2:1.2.0] C:\Users\mhmmd\.gradle\caches\transforms-3\11131d099be9c123d2514ae5f1228212\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+150                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+150-->[androidx.emoji2:emoji2:1.2.0] C:\Users\mhmmd\.gradle\caches\transforms-3\11131d099be9c123d2514ae5f1228212\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+151                android:value="androidx.startup" />
+151-->[androidx.emoji2:emoji2:1.2.0] C:\Users\mhmmd\.gradle\caches\transforms-3\11131d099be9c123d2514ae5f1228212\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+152            <meta-data
+152-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\mhmmd\.gradle\caches\transforms-3\d2d75e56b3ef6b52e231fb5b652ef29f\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:29:13-31:52
+153                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+153-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\mhmmd\.gradle\caches\transforms-3\d2d75e56b3ef6b52e231fb5b652ef29f\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:30:17-78
+154                android:value="androidx.startup" />
+154-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\mhmmd\.gradle\caches\transforms-3\d2d75e56b3ef6b52e231fb5b652ef29f\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:31:17-49
+155            <meta-data
+155-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
+156                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+156-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
+157                android:value="androidx.startup" />
+157-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
+158        </provider>
+159
+160        <uses-library
+160-->[androidx.window:window:1.0.0] C:\Users\mhmmd\.gradle\caches\transforms-3\29e6f93e95e9d50473b75927bc24cd60\transformed\jetified-window-1.0.0\AndroidManifest.xml:25:9-27:40
+161            android:name="androidx.window.extensions"
+161-->[androidx.window:window:1.0.0] C:\Users\mhmmd\.gradle\caches\transforms-3\29e6f93e95e9d50473b75927bc24cd60\transformed\jetified-window-1.0.0\AndroidManifest.xml:26:13-54
+162            android:required="false" />
+162-->[androidx.window:window:1.0.0] C:\Users\mhmmd\.gradle\caches\transforms-3\29e6f93e95e9d50473b75927bc24cd60\transformed\jetified-window-1.0.0\AndroidManifest.xml:27:13-37
+163        <uses-library
+163-->[androidx.window:window:1.0.0] C:\Users\mhmmd\.gradle\caches\transforms-3\29e6f93e95e9d50473b75927bc24cd60\transformed\jetified-window-1.0.0\AndroidManifest.xml:28:9-30:40
+164            android:name="androidx.window.sidecar"
+164-->[androidx.window:window:1.0.0] C:\Users\mhmmd\.gradle\caches\transforms-3\29e6f93e95e9d50473b75927bc24cd60\transformed\jetified-window-1.0.0\AndroidManifest.xml:29:13-51
+165            android:required="false" />
+165-->[androidx.window:window:1.0.0] C:\Users\mhmmd\.gradle\caches\transforms-3\29e6f93e95e9d50473b75927bc24cd60\transformed\jetified-window-1.0.0\AndroidManifest.xml:30:13-37
+166
+167        <receiver
+167-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
+168            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+168-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
+169            android:directBootAware="false"
+169-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
+170            android:enabled="true"
+170-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
+171            android:exported="true"
+171-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
+172            android:permission="android.permission.DUMP" >
+172-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
+173            <intent-filter>
+173-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
+174                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+174-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
+174-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
+175            </intent-filter>
+176            <intent-filter>
+176-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
+177                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+177-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
+177-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
+178            </intent-filter>
+179            <intent-filter>
+179-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
+180                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+180-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
+180-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
+181            </intent-filter>
+182            <intent-filter>
+182-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
+183                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+183-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
+183-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\mhmmd\.gradle\caches\transforms-3\6630f9e478ec6811137c4ffff203277a\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
+184            </intent-filter>
+185        </receiver>
+186    </application>
+187
+188</manifest>

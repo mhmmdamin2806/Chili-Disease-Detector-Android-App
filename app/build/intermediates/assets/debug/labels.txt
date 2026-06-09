@@ -1,5 +1,5 @@
 Antraknosa
-Busuk Buah
-Cercospora
-Lalat Buah
-Healty
+Busuk_Buah
+Lalat_Buah
+cerocospora
+healthy

@@ -124,7 +124,8 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
 
     fun submitFrame(bitmap: Bitmap, imageWidth: Int, imageHeight: Int) {
         if (_isDetecting.value != true) return
-        if (inferenceJob?.isActive == true) return   // drop frame
+        if (_modelReady.value != true) return
+        if (inferenceJob?.isActive == true) return
 
         inferenceJob = viewModelScope.launch(Dispatchers.IO) {
             try {

@@ -1,19 +1,11 @@
 [
     {
-        "merged": "com.example.chilidisease.app-merged_res-4:/layout_activity_splash.xml.flat",
-        "source": "com.example.chilidisease.app-main-6:/layout/activity_splash.xml"
-    },
-    {
         "merged": "com.example.chilidisease.app-merged_res-4:/drawable_bg_top_bar.xml.flat",
         "source": "com.example.chilidisease.app-main-6:/drawable/bg_top_bar.xml"
     },
     {
         "merged": "com.example.chilidisease.app-merged_res-4:/layout_activity_main.xml.flat",
         "source": "com.example.chilidisease.app-main-6:/layout/activity_main.xml"
-    },
-    {
-        "merged": "com.example.chilidisease.app-merged_res-4:/drawable_ic_launcher_foreground.xml.flat",
-        "source": "com.example.chilidisease.app-main-6:/drawable/ic_launcher_foreground.xml"
     },
     {
         "merged": "com.example.chilidisease.app-merged_res-4:/layout_item_history.xml.flat",
@@ -32,10 +24,6 @@
         "source": "com.example.chilidisease.app-main-6:/drawable/ic_launcher_background.xml"
     },
     {
-        "merged": "com.example.chilidisease.app-merged_res-4:/xml_data_extraction_rules.xml.flat",
-        "source": "com.example.chilidisease.app-main-6:/xml/data_extraction_rules.xml"
-    },
-    {
         "merged": "com.example.chilidisease.app-merged_res-4:/drawable_bg_splash.xml.flat",
         "source": "com.example.chilidisease.app-main-6:/drawable/bg_splash.xml"
     },
@@ -44,20 +32,8 @@
         "source": "com.example.chilidisease.app-main-6:/drawable/bg_bottom_bar.xml"
     },
     {
-        "merged": "com.example.chilidisease.app-merged_res-4:/xml_file_provider_paths.xml.flat",
-        "source": "com.example.chilidisease.app-main-6:/xml/file_provider_paths.xml"
-    },
-    {
-        "merged": "com.example.chilidisease.app-merged_res-4:/drawable_bg_no_detection.xml.flat",
-        "source": "com.example.chilidisease.app-main-6:/drawable/bg_no_detection.xml"
-    },
-    {
         "merged": "com.example.chilidisease.app-merged_res-4:/drawable_bg_status_badge.xml.flat",
         "source": "com.example.chilidisease.app-main-6:/drawable/bg_status_badge.xml"
-    },
-    {
-        "merged": "com.example.chilidisease.app-merged_res-4:/xml_preferences.xml.flat",
-        "source": "com.example.chilidisease.app-main-6:/xml/preferences.xml"
     },
     {
         "merged": "com.example.chilidisease.app-merged_res-4:/drawable_ic_focus_ring.xml.flat",
@@ -68,24 +44,52 @@
         "source": "com.example.chilidisease.app-main-6:/layout/activity_history.xml"
     },
     {
-        "merged": "com.example.chilidisease.app-merged_res-4:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.example.chilidisease.app-main-6:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "com.example.chilidisease.app-merged_res-4:/layout_activity_settings.xml.flat",
+        "source": "com.example.chilidisease.app-main-6:/layout/activity_settings.xml"
+    },
+    {
+        "merged": "com.example.chilidisease.app-merged_res-4:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.chilidisease.app-main-6:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.chilidisease.app-merged_res-4:/layout_activity_splash.xml.flat",
+        "source": "com.example.chilidisease.app-main-6:/layout/activity_splash.xml"
+    },
+    {
+        "merged": "com.example.chilidisease.app-merged_res-4:/drawable_logo_binus.png.flat",
+        "source": "com.example.chilidisease.app-main-6:/drawable/logo_binus.png"
+    },
+    {
+        "merged": "com.example.chilidisease.app-merged_res-4:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.chilidisease.app-main-6:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.example.chilidisease.app-merged_res-4:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.chilidisease.app-main-6:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.example.chilidisease.app-merged_res-4:/xml_file_provider_paths.xml.flat",
+        "source": "com.example.chilidisease.app-main-6:/xml/file_provider_paths.xml"
+    },
+    {
+        "merged": "com.example.chilidisease.app-merged_res-4:/drawable_bg_no_detection.xml.flat",
+        "source": "com.example.chilidisease.app-main-6:/drawable/bg_no_detection.xml"
+    },
+    {
+        "merged": "com.example.chilidisease.app-merged_res-4:/xml_preferences.xml.flat",
+        "source": "com.example.chilidisease.app-main-6:/xml/preferences.xml"
     },
     {
         "merged": "com.example.chilidisease.app-merged_res-4:/xml_backup_rules.xml.flat",
         "source": "com.example.chilidisease.app-main-6:/xml/backup_rules.xml"
     },
     {
-        "merged": "com.example.chilidisease.app-merged_res-4:/layout_activity_settings.xml.flat",
-        "source": "com.example.chilidisease.app-main-6:/layout/activity_settings.xml"
+        "merged": "com.example.chilidisease.app-merged_res-4:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.chilidisease.app-main-6:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
         "merged": "com.example.chilidisease.app-merged_res-4:/drawable_bg_record_button.xml.flat",
         "source": "com.example.chilidisease.app-main-6:/drawable/bg_record_button.xml"
-    },
-    {
-        "merged": "com.example.chilidisease.app-merged_res-4:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.example.chilidisease.app-main-6:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
         "merged": "com.example.chilidisease.app-merged_res-4:/drawable_bg_live_dot.xml.flat",

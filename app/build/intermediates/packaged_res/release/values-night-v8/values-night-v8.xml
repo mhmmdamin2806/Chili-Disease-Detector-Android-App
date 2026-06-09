@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+    <color name="color_anthracnose">#CCFF6D00</color>
+    <color name="color_fusarium">#CCD50000</color>
+    <color name="color_healthy">#CC00C853</color>
+    <color name="color_unknown">#CC6200EA</color>
+    <color name="transparent_white">#33FFFFFF</color>
+    <color name="transparent_white_dark">#55FFFFFF</color>
+    <style name="Theme.ChiliDisease" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="colorPrimary">#81C784</item>
+        <item name="colorPrimaryVariant">#4CAF50</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="colorSecondary">#FFAB91</item>
+        <item name="colorSurface">#1E1E1E</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" ns1:targetApi="27">shortEdges</item>
+    </style>
+</resources>

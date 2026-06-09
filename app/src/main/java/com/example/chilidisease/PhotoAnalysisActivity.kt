@@ -26,8 +26,9 @@ import androidx.core.content.FileProvider
 import androidx.exifinterface.media.ExifInterface
 import androidx.lifecycle.lifecycleScope
 import com.example.chilidisease.databinding.ActivityPhotoAnalysisBinding
-import com.example.chilidisease.detector.ChiliDiseaseDetector
+import com.example.chilidisease.detector.RoboflowRemoteDetector
 import com.example.chilidisease.detector.DetectionResult
+import com.example.chilidisease.detector.DiseaseInfo
 import com.example.chilidisease.history.DetectionHistoryManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -38,67 +39,67 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-/**
- * PhotoAnalysisActivity
- *
- * Activity untuk analisis gambar statis (bukan real-time kamera).
- * Mendukung dua sumber gambar:
- *   1. Galeri / File manager (ACTION_GET_CONTENT)
- *   2. Kamera — ambil foto langsung (MediaStore + FileProvider)
- *
- * Alur:
- *   Pilih sumber → Decode Bitmap → TFLite → Gambar hasil di atas foto → Tampilkan
- */
 class PhotoAnalysisActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "PhotoAnalysisActivity"
+
         const val EXTRA_SOURCE = "source"
         const val SOURCE_GALLERY = "gallery"
-        const val SOURCE_CAMERA  = "camera"
+        const val SOURCE_CAMERA = "camera"
     }
 
     private lateinit var binding: ActivityPhotoAnalysisBinding
-    private lateinit var detector: ChiliDiseaseDetector
+    private lateinit var detector: RoboflowRemoteDetector
     private lateinit var historyManager: DetectionHistoryManager
 
-    // URI foto yang diambil kamera (disimpan ke MediaStore)
     private var capturedPhotoUri: Uri? = null
-
-    // Bitmap terakhir (untuk share)
     private var resultBitmap: Bitmap? = null
     private var lastResults: List<DetectionResult> = emptyList()
-
-    // ================================================================
-    // LIFECYCLE
-    // ================================================================
+    private var isDetectorReady = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityPhotoAnalysisBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbarPhoto)
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            title = getString(R.string.photo_analysis_title)
-        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = getString(R.string.photo_analysis_title)
 
         historyManager = DetectionHistoryManager(this)
 
-        initDetector()
         setupButtons()
+        initDetectorAndOpenSource()
+    }
 
-        when (intent.getStringExtra(EXTRA_SOURCE)) {
-            SOURCE_GALLERY -> pickFromGallery()
-            SOURCE_CAMERA  -> capturePhoto()
-        }
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "PhotoAnalysisActivity resumed")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "PhotoAnalysisActivity paused")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        if (::detector.isInitialized) detector.close()
-        resultBitmap?.recycle()
+
+        try {
+            if (::detector.isInitialized) {
+                detector.close()
+            }
+        } catch (_: Exception) {
+        }
+
+        try {
+            resultBitmap?.recycle()
+        } catch (_: Exception) {
+        }
+
+        resultBitmap = null
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -106,114 +107,141 @@ class PhotoAnalysisActivity : AppCompatActivity() {
         return true
     }
 
-    // ================================================================
-    // INIT
-    // ================================================================
+    private fun initDetectorAndOpenSource() {
+        showLoading(true)
 
-    private fun initDetector() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                detector = ChiliDiseaseDetector(this@PhotoAnalysisActivity)
-                Log.d(TAG, "✅ Detector siap")
-            } catch (e: Exception) {
-                Log.e(TAG, "❌ Gagal init detector: ${e.message}")
+                detector = RoboflowRemoteDetector(this@PhotoAnalysisActivity)
+                isDetectorReady = true
+
                 withContext(Dispatchers.Main) {
+                    showLoading(false)
+
+                    when (intent.getStringExtra(EXTRA_SOURCE)) {
+                        SOURCE_GALLERY -> pickFromGallery()
+                        SOURCE_CAMERA -> capturePhoto()
+                        else -> {
+                            binding.tvPhotoHint.visibility = View.VISIBLE
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Gagal init detector: ${e.message}", e)
+
+                withContext(Dispatchers.Main) {
+                    showLoading(false)
                     showToast("Model tidak ditemukan. Pastikan file .tflite ada di assets/")
                 }
             }
         }
     }
 
-    // ================================================================
-    // BUTTON SETUP
-    // ================================================================
-
     private fun setupButtons() {
-        // Ambil ulang dari galeri
-        binding.btnPickGallery.setOnClickListener { pickFromGallery() }
-
-        // Ambil ulang foto kamera
-        binding.btnCapture.setOnClickListener { capturePhoto() }
-
-        // Analisis ulang gambar yang sudah ada
-        binding.btnAnalyzeAgain.setOnClickListener {
-            resultBitmap?.let { analyzeAndDisplay(it) }
-                ?: showToast("Pilih foto terlebih dahulu")
+        binding.btnPickGallery.setOnClickListener {
+            pickFromGallery()
         }
 
-        // Share hasil
-        binding.btnShareResult.setOnClickListener { shareResult() }
+        binding.btnCapture.setOnClickListener {
+            capturePhoto()
+        }
 
-        // Simpan ke galeri
-        binding.btnSaveResult.setOnClickListener { saveResultToGallery() }
+        binding.btnAnalyzeAgain.setOnClickListener {
+            resultBitmap?.let {
+                analyzeAndDisplay(it)
+            } ?: showToast("Pilih foto terlebih dahulu")
+        }
+
+        binding.btnShareResult.setOnClickListener {
+            shareResult()
+        }
+
+        binding.btnSaveResult.setOnClickListener {
+            saveResultToGallery()
+        }
     }
-
-    // ================================================================
-    // GALLERY PICKER
-    // ================================================================
 
     private val galleryLauncher = registerForActivityResult(
         ActivityResultContracts.GetContent()
-    ) { uri: Uri? ->
-        uri?.let { processImageUri(it) }
+    ) { uri ->
+        if (uri != null) {
+            processImageUri(uri)
+        } else {
+            showToast("Tidak ada gambar yang dipilih")
+        }
     }
 
     private fun pickFromGallery() {
         galleryLauncher.launch("image/*")
     }
 
-    // ================================================================
-    // CAMERA CAPTURE
-    // ================================================================
-
     private val cameraPermLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
-        if (granted) capturePhoto() else showToast("Izin kamera diperlukan")
+        if (granted) {
+            capturePhoto()
+        } else {
+            showToast("Izin kamera diperlukan")
+        }
     }
 
     private val captureLauncher = registerForActivityResult(
         ActivityResultContracts.TakePicture()
     ) { success ->
-        if (success) {
-            capturedPhotoUri?.let { processImageUri(it) }
+        val uri = capturedPhotoUri
+
+        if (success && uri != null) {
+            processImageUri(uri)
         } else {
-            showToast("Foto dibatalkan")
+            showToast("Foto dibatalkan atau kamera tidak bisa dibuka")
         }
     }
 
     private fun capturePhoto() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-            != PackageManager.PERMISSION_GRANTED) {
+            != PackageManager.PERMISSION_GRANTED
+        ) {
             cameraPermLauncher.launch(Manifest.permission.CAMERA)
             return
         }
 
-        // Buat URI di MediaStore (tidak butuh WRITE_EXTERNAL_STORAGE di API 29+)
-        val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-        val contentValues = ContentValues().apply {
-            put(MediaStore.Images.Media.DISPLAY_NAME, "CABAI_$timestamp.jpg")
-            put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/ChiliDetector")
-            }
-        }
+        try {
+            val timestamp = SimpleDateFormat(
+                "yyyyMMdd_HHmmss",
+                Locale.getDefault()
+            ).format(Date())
 
-        capturedPhotoUri = contentResolver.insert(
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues
-        )
-        capturedPhotoUri?.let { uri ->
+            val contentValues = ContentValues().apply {
+                put(MediaStore.Images.Media.DISPLAY_NAME, "CABAI_$timestamp.jpg")
+                put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    put(
+                        MediaStore.Images.Media.RELATIVE_PATH,
+                        "Pictures/ChiliDetector"
+                    )
+                    put(MediaStore.Images.Media.IS_PENDING, 0)
+                }
+            }
+
+            val uri = contentResolver.insert(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                contentValues
+            )
+
+            if (uri == null) {
+                showToast("Gagal membuat file foto")
+                return
+            }
+
+            capturedPhotoUri = uri
             captureLauncher.launch(uri)
-        } ?: showToast("Gagal membuat file foto")
+        } catch (e: Exception) {
+            Log.e(TAG, "capturePhoto error: ${e.message}", e)
+            showToast("Gagal membuka kamera: ${e.message}")
+        }
     }
 
-    // ================================================================
-    // IMAGE PROCESSING
-    // ================================================================
-
-    /**
-     * Decode URI → Bitmap → Analisis → Tampilkan
-     */
     private fun processImageUri(uri: Uri) {
         showLoading(true)
         binding.tvPhotoHint.visibility = View.GONE
@@ -227,7 +255,8 @@ class PhotoAnalysisActivity : AppCompatActivity() {
                     analyzeAndDisplay(bitmap)
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "Error memproses gambar: ${e.message}")
+                Log.e(TAG, "Error memproses gambar: ${e.message}", e)
+
                 withContext(Dispatchers.Main) {
                     showLoading(false)
                     showToast("Gagal membuka gambar: ${e.message}")
@@ -236,68 +265,83 @@ class PhotoAnalysisActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Decode URI ke Bitmap dengan:
-     * - Downscale otomatis jika gambar terlalu besar (max 1920px)
-     * - Koreksi rotasi dari EXIF metadata
-     */
     private fun decodeBitmapFromUri(uri: Uri): Bitmap? {
         return try {
-            // Baca EXIF untuk rotasi
             val rotation = contentResolver.openInputStream(uri)?.use { stream ->
                 val exif = ExifInterface(stream)
-                when (exif.getAttributeInt(
-                    ExifInterface.TAG_ORIENTATION,
-                    ExifInterface.ORIENTATION_NORMAL
-                )) {
-                    ExifInterface.ORIENTATION_ROTATE_90  -> 90f
+
+                when (
+                    exif.getAttributeInt(
+                        ExifInterface.TAG_ORIENTATION,
+                        ExifInterface.ORIENTATION_NORMAL
+                    )
+                ) {
+                    ExifInterface.ORIENTATION_ROTATE_90 -> 90f
                     ExifInterface.ORIENTATION_ROTATE_180 -> 180f
                     ExifInterface.ORIENTATION_ROTATE_270 -> 270f
-                    else                                 -> 0f
+                    else -> 0f
                 }
             } ?: 0f
 
-            // Baca ukuran asli dulu
-            val opts = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+            val opts = BitmapFactory.Options().apply {
+                inJustDecodeBounds = true
+            }
+
             contentResolver.openInputStream(uri)?.use {
                 BitmapFactory.decodeStream(it, null, opts)
             }
 
-            // Hitung inSampleSize agar tidak OOM
             val maxSize = 1920
             var sampleSize = 1
-            while (opts.outWidth / sampleSize > maxSize || opts.outHeight / sampleSize > maxSize) {
+
+            while (
+                opts.outWidth / sampleSize > maxSize ||
+                opts.outHeight / sampleSize > maxSize
+            ) {
                 sampleSize *= 2
             }
 
-            // Decode sesungguhnya
-            val decodeOpts = BitmapFactory.Options().apply { inSampleSize = sampleSize }
-            val raw = contentResolver.openInputStream(uri)?.use {
+            val decodeOpts = BitmapFactory.Options().apply {
+                inSampleSize = sampleSize
+            }
+
+            val rawBitmap = contentResolver.openInputStream(uri)?.use {
                 BitmapFactory.decodeStream(it, null, decodeOpts)
             } ?: return null
 
-            // Rotasi jika perlu
             if (rotation != 0f) {
-                val matrix = Matrix().apply { postRotate(rotation) }
-                Bitmap.createBitmap(raw, 0, 0, raw.width, raw.height, matrix, true)
-                    .also { if (it !== raw) raw.recycle() }
-            } else raw
+                val matrix = Matrix().apply {
+                    postRotate(rotation)
+                }
 
+                Bitmap.createBitmap(
+                    rawBitmap,
+                    0,
+                    0,
+                    rawBitmap.width,
+                    rawBitmap.height,
+                    matrix,
+                    true
+                ).also {
+                    if (it !== rawBitmap) {
+                        rawBitmap.recycle()
+                    }
+                }
+            } else {
+                rawBitmap
+            }
         } catch (e: Exception) {
-            Log.e(TAG, "decodeBitmapFromUri error: ${e.message}")
+            Log.e(TAG, "decodeBitmapFromUri error: ${e.message}", e)
             null
         }
     }
 
-    /**
-     * Jalankan TFLite → gambar bounding box di atas foto → tampilkan di ImageView
-     */
     private fun analyzeAndDisplay(bitmap: Bitmap) {
         showLoading(true)
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                if (!::detector.isInitialized) {
+                if (!isDetectorReady || !::detector.isInitialized) {
                     withContext(Dispatchers.Main) {
                         showLoading(false)
                         showToast("Model belum siap, coba lagi")
@@ -305,48 +349,53 @@ class PhotoAnalysisActivity : AppCompatActivity() {
                     return@launch
                 }
 
-                // Inferensi
-                val t0 = System.currentTimeMillis()
+                val start = System.currentTimeMillis()
                 val results = detector.detect(bitmap)
-                val ms = System.currentTimeMillis() - t0
-                Log.d(TAG, "Inferensi: ${ms}ms | Deteksi: ${results.size}")
+                val inferenceMs = System.currentTimeMillis() - start
 
-                // Gambar hasil di atas bitmap asli
-                val resultBmp = drawResultsOnBitmap(bitmap, results)
+                val resultImage = drawResultsOnBitmap(bitmap, results)
 
                 withContext(Dispatchers.Main) {
-                    // Simpan untuk share/save
-                    this@PhotoAnalysisActivity.resultBitmap = resultBmp
-                    this@PhotoAnalysisActivity.lastResults   = results
+                    resultBitmap = resultImage
+                    lastResults = results
 
-                    // Tampilkan gambar hasil
-                    binding.ivPhoto.setImageBitmap(resultBmp)
+                    binding.ivPhoto.setImageBitmap(resultImage)
+
                     showLoading(false)
-                    updateResultCard(results, ms)
+                    updateResultCard(results, inferenceMs)
 
-                    // Simpan ke riwayat jika ada deteksi
                     results.maxByOrNull { it.confidence }?.let { top ->
-                        if (top.confidence >= 0.60f) historyManager.record(top)
+                        if (top.confidence >= 0.60f && top.hasChiliObject) {
+                            historyManager.record(top)
+                        }
                     }
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "analyzeAndDisplay error: ${e.message}")
+                Log.e(TAG, "analyzeAndDisplay error: ${e.message}", e)
+
                 withContext(Dispatchers.Main) {
                     showLoading(false)
-                    showToast("Analisis gagal: ${e.message}")
+
+                    val message = when {
+                        e.message?.contains("401") == true ->
+                            "API Roboflow ditolak. Periksa API key, workspace, dan model version."
+
+                        e.message?.contains("404") == true ->
+                            "Model Roboflow tidak ditemukan. Periksa MODEL_ID dan MODEL_VERSION."
+
+                        e.message?.contains("timeout", ignoreCase = true) == true ->
+                            "Koneksi ke Roboflow timeout. Periksa internet."
+
+                        else ->
+                            "Analisis gagal: ${e.message}"
+                    }
+
+                    showToast(message)
                 }
             }
         }
     }
 
-    // ================================================================
-    // DRAW RESULTS ON BITMAP
-    // ================================================================
-
-    /**
-     * Gambar bounding box + label langsung di atas foto asli.
-     * Mengembalikan Bitmap baru (bitmap asli tidak dimodifikasi).
-     */
     private fun drawResultsOnBitmap(
         source: Bitmap,
         results: List<DetectionResult>
@@ -354,190 +403,289 @@ class PhotoAnalysisActivity : AppCompatActivity() {
         val w = source.width.toFloat()
         val h = source.height.toFloat()
 
-        // Buat salinan bitmap agar asli tidak berubah
         val output = source.copy(Bitmap.Config.ARGB_8888, true)
         val canvas = Canvas(output)
 
-        // Scale font & stroke agar proporsional dengan ukuran gambar
         val baseStrokeWidth = (minOf(w, h) * 0.007f).coerceAtLeast(3f)
-        val cornerLen       = minOf(w, h) * 0.04f
-        var textSize        = (minOf(w, h) * 0.045f).coerceIn(24f, 72f)
-        val subTextSize     = textSize * 0.75f
-        val padding         = textSize * 0.3f
-        val cornerStroke    = baseStrokeWidth * 2f
+        val cornerLen = minOf(w, h) * 0.04f
+        val textSize = (minOf(w, h) * 0.045f).coerceIn(24f, 72f)
+        val subTextSize = textSize * 0.75f
+        val padding = textSize * 0.3f
+        val cornerStroke = baseStrokeWidth * 2f
 
         val boxPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            style       = Paint.Style.STROKE
+            style = Paint.Style.STROKE
             strokeWidth = baseStrokeWidth
         }
+
         val cornerPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            style       = Paint.Style.STROKE
+            style = Paint.Style.STROKE
             strokeWidth = cornerStroke
-            strokeCap   = Paint.Cap.ROUND
+            strokeCap = Paint.Cap.ROUND
         }
+
         val bgPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             style = Paint.Style.FILL
             alpha = 210
         }
+
         val labelPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color     = Color.WHITE
-            this.textSize  = textSize
-            typeface  = Typeface.DEFAULT_BOLD
+            color = Color.WHITE
+            this.textSize = textSize
+            typeface = Typeface.DEFAULT_BOLD
         }
+
         val subPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color     = Color.WHITE
-            this.textSize  = subTextSize
+            color = Color.WHITE
+            this.textSize = subTextSize
         }
 
         if (results.isEmpty()) {
-            // Tampilkan pesan "tidak terdeteksi" di tengah
-            val noDetPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                color         = Color.WHITE
-                textSize      = textSize
-                typeface      = Typeface.DEFAULT_BOLD
-                textAlign     = Paint.Align.CENTER
-                setShadowLayer(4f, 2f, 2f, Color.BLACK)
-            }
-            val bgNoDetPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                color = Color.argb(160, 0, 0, 0)
-                style = Paint.Style.FILL
-            }
-            val msg = "Tidak ada penyakit terdeteksi"
-            val tw  = noDetPaint.measureText(msg)
-            val cx  = w / 2f
-            val cy  = h / 2f
-            canvas.drawRoundRect(
-                RectF(cx - tw / 2 - padding * 2, cy - textSize - padding,
-                      cx + tw / 2 + padding * 2, cy + padding),
-                12f, 12f, bgNoDetPaint
-            )
-            canvas.drawText(msg, cx, cy, noDetPaint)
+            drawNoDetectionMessage(canvas, w, h, textSize, padding)
             return output
         }
 
-        for (r in results) {
-            val color = when (r.classIndex) {
-                0    -> Color.parseColor("#00C853")
-                1    -> Color.parseColor("#FF6D00")
-                2    -> Color.parseColor("#D50000")
-                else -> Color.parseColor("#6200EA")
-            }
+        for (result in results) {
+            val color = getColorByLabel(result.label)
 
-            // Koordinat box di pixel
-            val left   = r.boundingBox.left   * w
-            val top    = r.boundingBox.top    * h
-            val right  = r.boundingBox.right  * w
-            val bottom = r.boundingBox.bottom * h
-            val rect   = RectF(left, top, right, bottom)
+            val left = result.boundingBox.left * w
+            val top = result.boundingBox.top * h
+            val right = result.boundingBox.right * w
+            val bottom = result.boundingBox.bottom * h
+            val rect = RectF(left, top, right, bottom)
 
-            // ── Kotak utama ──
             boxPaint.color = color
+            cornerPaint.color = color
+            bgPaint.color = color
+
             canvas.drawRoundRect(rect, 8f, 8f, boxPaint)
 
-            // ── Corner markers ──
-            cornerPaint.color = color
-            // TL
             canvas.drawLine(left, top + cornerLen, left, top, cornerPaint)
             canvas.drawLine(left, top, left + cornerLen, top, cornerPaint)
-            // TR
+
             canvas.drawLine(right - cornerLen, top, right, top, cornerPaint)
             canvas.drawLine(right, top, right, top + cornerLen, cornerPaint)
-            // BL
+
             canvas.drawLine(left, bottom - cornerLen, left, bottom, cornerPaint)
             canvas.drawLine(left, bottom, left + cornerLen, bottom, cornerPaint)
-            // BR
+
             canvas.drawLine(right - cornerLen, bottom, right, bottom, cornerPaint)
             canvas.drawLine(right, bottom, right, bottom - cornerLen, cornerPaint)
 
-            // ── Label ──
-            val labelText = r.label
-            val confText  = "Akurasi: ${r.confidencePercent}"
-            val lw = maxOf(labelPaint.measureText(labelText), subPaint.measureText(confText))
-            val lh = textSize + subTextSize + padding * 3
+            val labelText = DiseaseInfo.displayName(result.label)
+            val confidenceText = "Akurasi: ${result.confidencePercent}"
 
-            val labelTop = if (top > lh + 8f) top - lh - 4f else bottom + 4f
-            val labelRect = RectF(left, labelTop, left + lw + padding * 2, labelTop + lh)
+            val textWidth = maxOf(
+                labelPaint.measureText(labelText),
+                subPaint.measureText(confidenceText)
+            )
 
-            bgPaint.color = color
+            val textHeight = textSize + subTextSize + padding * 3
+
+            val labelTop = if (top > textHeight + 8f) {
+                top - textHeight - 4f
+            } else {
+                bottom + 4f
+            }
+
+            val labelRect = RectF(
+                left,
+                labelTop,
+                left + textWidth + padding * 2,
+                labelTop + textHeight
+            )
+
             canvas.drawRoundRect(labelRect, 8f, 8f, bgPaint)
 
-            canvas.drawText(labelText, left + padding, labelTop + padding + textSize, labelPaint)
-            canvas.drawText(confText, left + padding, labelTop + padding + textSize + subTextSize + padding * 0.5f, subPaint)
+            canvas.drawText(
+                labelText,
+                left + padding,
+                labelTop + padding + textSize,
+                labelPaint
+            )
+
+            canvas.drawText(
+                confidenceText,
+                left + padding,
+                labelTop + padding + textSize + subTextSize + padding * 0.5f,
+                subPaint
+            )
         }
 
         return output
     }
 
-    // ================================================================
-    // UI UPDATES
-    // ================================================================
+    private fun drawNoDetectionMessage(
+        canvas: Canvas,
+        width: Float,
+        height: Float,
+        textSize: Float,
+        padding: Float
+    ) {
+        val noDetPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.WHITE
+            this.textSize = textSize
+            typeface = Typeface.DEFAULT_BOLD
+            textAlign = Paint.Align.CENTER
+            setShadowLayer(4f, 2f, 2f, Color.BLACK)
+        }
 
-    private fun updateResultCard(results: List<DetectionResult>, inferenceMs: Long) {
+        val bgNoDetPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.argb(160, 0, 0, 0)
+            style = Paint.Style.FILL
+        }
+
+        val msg = "Tidak ada penyakit terdeteksi"
+        val tw = noDetPaint.measureText(msg)
+        val cx = width / 2f
+        val cy = height / 2f
+
+        canvas.drawRoundRect(
+            RectF(
+                cx - tw / 2 - padding * 2,
+                cy - textSize - padding,
+                cx + tw / 2 + padding * 2,
+                cy + padding
+            ),
+            12f,
+            12f,
+            bgNoDetPaint
+        )
+
+        canvas.drawText(msg, cx, cy, noDetPaint)
+    }
+
+    private fun updateResultCard(
+        results: List<DetectionResult>,
+        inferenceMs: Long
+    ) {
         if (results.isEmpty()) {
             binding.cardPhotoResult.visibility = View.GONE
-            binding.tvNoDetection.visibility   = View.VISIBLE
-            binding.btnShareResult.visibility  = View.VISIBLE
-            binding.btnSaveResult.visibility   = View.VISIBLE
+            binding.tvNoDetection.visibility = View.VISIBLE
+            binding.btnShareResult.visibility = View.VISIBLE
+            binding.btnSaveResult.visibility = View.VISIBLE
             return
         }
 
-        binding.tvNoDetection.visibility   = View.GONE
+        binding.tvNoDetection.visibility = View.GONE
         binding.cardPhotoResult.visibility = View.VISIBLE
-        binding.btnShareResult.visibility  = View.VISIBLE
-        binding.btnSaveResult.visibility   = View.VISIBLE
+        binding.btnShareResult.visibility = View.VISIBLE
+        binding.btnSaveResult.visibility = View.VISIBLE
 
-        val top = results.maxByOrNull { it.confidence }!!
+        val top = results.maxByOrNull { it.confidence } ?: return
 
-        binding.tvPhotoDiseaseName.text  = top.label
-        binding.tvPhotoConfidence.text   = "Akurasi: ${top.confidencePercent}"
-        binding.tvPhotoDescription.text  = top.diseaseDescription
-        binding.tvInferenceTime.text     = "Waktu analisis: ${inferenceMs}ms"
+        binding.tvPhotoDiseaseName.text = DiseaseInfo.displayName(top.label)
+        binding.tvPhotoConfidence.text = "Akurasi: ${top.confidencePercent}"
+        binding.tvPhotoDescription.text = top.diseaseDescription
+        binding.tvInferenceTime.text = "Waktu analisis: ${inferenceMs}ms"
 
-        // Tampilkan semua deteksi jika lebih dari 1
-        if (results.size > 1) {
-            val all = results.joinToString("\n") { "• ${it.label} (${it.confidencePercent})" }
-            binding.tvAllDetections.text       = "Semua deteksi:\n$all"
+        if (top.allProbabilities.isNotEmpty()) {
+            val allDetections = top.allProbabilities.joinToString("\n") {
+                "• ${DiseaseInfo.displayName(it.label)} (${String.format("%.1f", it.confidence * 100f)}%)"
+            }
+
+            binding.tvAllDetections.text = "Semua kelas:\n$allDetections"
+            binding.tvAllDetections.visibility = View.VISIBLE
+        } else if (results.size > 1) {
+            val allDetections = results.joinToString("\n") {
+                "• ${DiseaseInfo.displayName(it.label)} (${it.confidencePercent})"
+            }
+
+            binding.tvAllDetections.text = "Semua deteksi:\n$allDetections"
             binding.tvAllDetections.visibility = View.VISIBLE
         } else {
             binding.tvAllDetections.visibility = View.GONE
         }
 
-        val colorRes = when (top.classIndex) {
-            0    -> R.color.color_healthy
-            1    -> R.color.color_anthracnose
-            2    -> R.color.color_fusarium
-            else -> R.color.color_unknown
-        }
-        binding.cardPhotoResult.setCardBackgroundColor(ContextCompat.getColor(this, colorRes))
+        val colorRes = getColorResByLabel(top.label)
+
+        binding.cardPhotoResult.setCardBackgroundColor(
+            ContextCompat.getColor(this, colorRes)
+        )
     }
 
-    // ================================================================
-    // SHARE & SAVE
-    // ================================================================
+    private fun getColorByLabel(labelRaw: String): Int {
+        val label = labelRaw.lowercase()
+
+        return when {
+            label == "healthy" || label == "healty" || label == "sehat" ->
+                Color.parseColor("#00C853")
+
+            label.contains("antraknosa") ||
+                    label.contains("anthraknosa") ||
+                    label.contains("patek") ->
+                Color.parseColor("#FF6D00")
+
+            label.contains("busuk") ->
+                Color.parseColor("#D50000")
+
+            label.contains("lalat") ->
+                Color.parseColor("#6200EA")
+
+            label.contains("cercospora") ||
+                    label.contains("cerocospora") ->
+                Color.parseColor("#6200EA")
+
+            else ->
+                Color.parseColor("#6200EA")
+        }
+    }
+
+    private fun getColorResByLabel(labelRaw: String): Int {
+        val label = labelRaw.lowercase()
+
+        return when {
+            label == "healthy" || label == "healty" || label == "sehat" ->
+                R.color.color_healthy
+
+            label.contains("antraknosa") ||
+                    label.contains("anthraknosa") ||
+                    label.contains("patek") ->
+                R.color.color_anthracnose
+
+            label.contains("busuk") ->
+                R.color.color_fusarium
+
+            else ->
+                R.color.color_unknown
+        }
+    }
 
     private fun shareResult() {
-        val bmp = resultBitmap ?: run { showToast("Tidak ada hasil untuk dibagikan"); return }
+        val bitmap = resultBitmap ?: run {
+            showToast("Tidak ada hasil untuk dibagikan")
+            return
+        }
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                // Simpan sementara ke cache
-                val file = File(cacheDir, "hasil_deteksi_${System.currentTimeMillis()}.jpg")
-                file.outputStream().use { out ->
-                    bmp.compress(Bitmap.CompressFormat.JPEG, 95, out)
+                val file = File(
+                    cacheDir,
+                    "hasil_deteksi_${System.currentTimeMillis()}.jpg"
+                )
+
+                file.outputStream().use { output ->
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 95, output)
                 }
+
                 val uri = FileProvider.getUriForFile(
                     this@PhotoAnalysisActivity,
                     "com.example.chilidisease.fileprovider",
                     file
                 )
 
-                val top  = lastResults.maxByOrNull { it.confidence }
-                val text = if (top != null) buildString {
-                    appendLine("🌶️ Hasil Deteksi Penyakit Cabai")
-                    appendLine("Penyakit : ${top.label}")
-                    appendLine("Akurasi  : ${top.confidencePercent}")
-                    appendLine("Info     : ${top.diseaseDescription}")
-                } else "🌶️ Tidak ada penyakit terdeteksi"
+                val top = lastResults.maxByOrNull { it.confidence }
+
+                val text = if (top != null) {
+                    buildString {
+                        appendLine("🌶️ Hasil Deteksi Penyakit Cabai")
+                        appendLine("Penyakit : ${DiseaseInfo.displayName(top.label)}")
+                        appendLine("Akurasi  : ${top.confidencePercent}")
+                        appendLine("Info     : ${top.diseaseDescription}")
+                    }
+                } else {
+                    "🌶️ Tidak ada penyakit terdeteksi"
+                }
 
                 val intent = Intent(Intent.ACTION_SEND).apply {
                     type = "image/jpeg"
@@ -551,35 +699,55 @@ class PhotoAnalysisActivity : AppCompatActivity() {
                     startActivity(Intent.createChooser(intent, "Bagikan Hasil"))
                 }
             } catch (e: Exception) {
-                withContext(Dispatchers.Main) { showToast("Gagal membagikan: ${e.message}") }
+                Log.e(TAG, "shareResult error: ${e.message}", e)
+
+                withContext(Dispatchers.Main) {
+                    showToast("Gagal membagikan: ${e.message}")
+                }
             }
         }
     }
 
     private fun saveResultToGallery() {
-        val bmp = resultBitmap ?: run { showToast("Tidak ada hasil untuk disimpan"); return }
+        val bitmap = resultBitmap ?: run {
+            showToast("Tidak ada hasil untuk disimpan")
+            return
+        }
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+                val timestamp = SimpleDateFormat(
+                    "yyyyMMdd_HHmmss",
+                    Locale.getDefault()
+                ).format(Date())
+
                 val values = ContentValues().apply {
                     put(MediaStore.Images.Media.DISPLAY_NAME, "DETEKSI_CABAI_$timestamp.jpg")
                     put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                        put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/ChiliDetector")
+                        put(
+                            MediaStore.Images.Media.RELATIVE_PATH,
+                            "Pictures/ChiliDetector"
+                        )
                         put(MediaStore.Images.Media.IS_PENDING, 1)
                     }
                 }
 
-                val uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-                uri?.let { u ->
-                    contentResolver.openOutputStream(u)?.use { out ->
-                        bmp.compress(Bitmap.CompressFormat.JPEG, 95, out)
+                val uri = contentResolver.insert(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    values
+                )
+
+                uri?.let { targetUri ->
+                    contentResolver.openOutputStream(targetUri)?.use { output ->
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 95, output)
                     }
+
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                         values.clear()
                         values.put(MediaStore.Images.Media.IS_PENDING, 0)
-                        contentResolver.update(u, values, null, null)
+                        contentResolver.update(targetUri, values, null, null)
                     }
                 }
 
@@ -587,30 +755,33 @@ class PhotoAnalysisActivity : AppCompatActivity() {
                     showToast("✅ Foto tersimpan di Galeri/ChiliDetector")
                 }
             } catch (e: Exception) {
-                withContext(Dispatchers.Main) { showToast("Gagal menyimpan: ${e.message}") }
+                Log.e(TAG, "saveResultToGallery error: ${e.message}", e)
+
+                withContext(Dispatchers.Main) {
+                    showToast("Gagal menyimpan: ${e.message}")
+                }
             }
         }
     }
 
-    // ================================================================
-    // UI HELPERS
-    // ================================================================
-
     private fun showLoading(show: Boolean) {
-        // progressPhoto dan tvLoadingMsg adalah view terpisah di dalam loadingContainer
-        // Kita kontrol visibility parent (loadingContainer) + children
-        val vis = if (show) View.VISIBLE else View.GONE
-        binding.progressPhoto.visibility = vis
-        binding.tvLoadingMsg.visibility  = vis
+        val visibility = if (show) View.VISIBLE else View.GONE
+
+        binding.progressPhoto.visibility = visibility
+        binding.tvLoadingMsg.visibility = visibility
+
         if (show) {
             binding.cardPhotoResult.visibility = View.GONE
-            binding.tvNoDetection.visibility   = View.GONE
-            binding.btnShareResult.visibility  = View.GONE
-            binding.btnSaveResult.visibility   = View.GONE
+            binding.tvNoDetection.visibility = View.GONE
+            binding.btnShareResult.visibility = View.GONE
+            binding.btnSaveResult.visibility = View.GONE
             binding.btnAnalyzeAgain.visibility = View.GONE
+        } else {
+            binding.btnAnalyzeAgain.visibility = View.VISIBLE
         }
     }
 
-    private fun showToast(msg: String) =
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
 }

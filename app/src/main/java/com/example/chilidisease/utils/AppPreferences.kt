@@ -29,8 +29,8 @@ class AppPreferences(context: Context) {
     // ================================================================
 
     val modelType: String
-        get() = prefs.getString(PrefsKey.MODEL_TYPE, "ssd") ?: "ssd"
-
+        get() = prefs.getString(PrefsKey.MODEL_TYPE, "mobilenetv4")
+            ?: "mobilenetv4"
     val confidenceThreshold: Float
         get() = prefs.getInt(PrefsKey.CONFIDENCE_THRESHOLD, 45) / 100f
 

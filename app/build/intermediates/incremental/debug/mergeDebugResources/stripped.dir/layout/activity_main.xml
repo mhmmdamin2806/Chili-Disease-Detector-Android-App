@@ -60,11 +60,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <ImageView
+            android:id="@+id/ivLogoBinus"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/logo_binus"
+            android:scaleType="fitCenter"
+            android:contentDescription="Logo Binus"
+            android:layout_marginEnd="6dp" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="&#127798; Deteksi Penyakit Cabai"
+            android:text="Deteksi Penyakit Cabai"
             android:textColor="#FFFFFFFF"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -218,18 +227,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="top">
 
-                <TextView
-                    android:id="@+id/tvDescription"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Bercak hitam cekung pada buah cabai."
-                    android:textColor="#CCFFFFFF"
-                    android:textSize="12sp"
-                    android:lineSpacingMultiplier="1.3"
-                    tools:ignore="HardcodedText" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Bercak hitam cekung pada buah cabai."
+                        android:textColor="#CCFFFFFF"
+                        android:textSize="12sp"
+                        android:lineSpacingMultiplier="1.3"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/tvAllProbabilities"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Persentase semua kelas akan muncul di sini."
+                        android:textColor="#BBFFFFFF"
+                        android:textSize="12sp"
+                        android:lineSpacingMultiplier="1.25"
+                        android:layout_marginTop="8dp"
+                        tools:ignore="HardcodedText" />
+
+                </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnShare"
@@ -247,6 +274,7 @@
                     app:backgroundTint="#33FFFFFF"
                     android:layout_marginStart="8dp"
                     android:contentDescription="Bagikan" />
+
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -286,26 +314,7 @@
                 app:strokeColor="#55FFFFFF"
                 app:cornerRadius="23dp"
                 app:backgroundTint="#33FFFFFF"
-                android:layout_marginEnd="8dp" />
-
-            <!-- Live Indicator -->
-            <FrameLayout
-                android:layout_width="52dp"
-                android:layout_height="52dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp">
-                <View
-                    android:layout_width="52dp"
-                    android:layout_height="52dp"
-                    android:background="@drawable/bg_record_button"
-                    android:layout_gravity="center" />
-                <View
-                    android:id="@+id/viewLiveDot"
-                    android:layout_width="13dp"
-                    android:layout_height="13dp"
-                    android:background="@drawable/bg_live_dot"
-                    android:layout_gravity="center" />
-            </FrameLayout>
+                android:layout_marginEnd="6dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnPause"
@@ -319,7 +328,7 @@
                 app:strokeColor="#55FFFFFF"
                 app:cornerRadius="23dp"
                 app:backgroundTint="#33FFFFFF"
-                android:layout_marginStart="8dp" />
+                android:layout_marginStart="6dp" />
 
         </LinearLayout>
 

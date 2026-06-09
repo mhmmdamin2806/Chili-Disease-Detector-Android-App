@@ -25,7 +25,7 @@ sealed class ModelConfig {
         override val labelPath:           String = "labels.txt",
         override val inputWidth:          Int    = 224,
         override val inputHeight:         Int    = 224,
-        override val confidenceThreshold: Float  = 0.50f
+        override val confidenceThreshold: Float  = 0.0f
     ) : ModelConfig()
 
     /** Google Teachable Machine (224×224) */

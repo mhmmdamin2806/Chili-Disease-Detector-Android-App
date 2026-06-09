@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    tools:context=".PhotoAnalysisActivity">
+
+    <!-- ══════════════════════════════════
+         AppBar + Toolbar
+         ══════════════════════════════════ -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/md_theme_light_primary"
+            app:titleTextColor="@color/white"
+            app:navigationIconTint="@color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- ══════════════════════════════════
+         Konten utama (scrollable)
+         ══════════════════════════════════ -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- ══ Tombol sumber foto (Galeri + Kamera) ══ -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp"
+                android:background="@color/md_theme_light_primary">
+
+                <!-- Pilih dari Galeri -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPickGallery"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="1"
+                    android:text="📁 Galeri"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="#44FFFFFF"
+                    app:cornerRadius="26dp"
+                    app:strokeColor="#88FFFFFF"
+                    app:strokeWidth="1dp"
+                    android:layout_marginEnd="6dp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+                <!-- Ambil Foto Kamera -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCapture"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="1"
+                    android:text="📷 Kamera"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="#44FFFFFF"
+                    app:cornerRadius="26dp"
+                    app:strokeColor="#88FFFFFF"
+                    app:strokeWidth="1dp"
+                    android:layout_marginStart="6dp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+            </LinearLayout>
+
+            <!-- ══ Area foto ══ -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="300dp"
+                android:background="#111111">
+
+                <!-- Foto yang dipilih / hasil analisis -->
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="280dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:contentDescription="Foto yang dianalisis" />
+
+                <!-- Hint saat belum ada foto -->
+                <LinearLayout
+                    android:id="@+id/tvPhotoHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="32dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🌿"
+                        android:textSize="56sp"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pilih foto dari galeri\natau ambil foto baru"
+                        android:textSize="16sp"
+                        android:textColor="#88FFFFFF"
+                        android:gravity="center"
+                        android:layout_marginTop="12dp" />
+
+                </LinearLayout>
+
+                <!-- Loading overlay -->
+                <LinearLayout
+                    android:id="@+id/loadingContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="#CC000000"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <ProgressBar
+                        android:id="@+id/progressPhoto"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:indeterminate="true"
+                        android:indeterminateTint="@color/md_theme_light_primary"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tvLoadingMsg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Menganalisis foto..."
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:layout_marginTop="12dp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <!-- ══ Area hasil deteksi ══ -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <!-- Tidak terdeteksi -->
+                <TextView
+                    android:id="@+id/tvNoDetection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="✅ Tidak ada penyakit yang terdeteksi pada foto ini"
+                    android:textSize="14sp"
+                    android:textColor="#2E7D32"
+                    android:textStyle="bold"
+                    android:background="@drawable/bg_no_detection"
+                    android:padding="14dp"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:layout_marginBottom="12dp"
+                    tools:visibility="visible" />
+
+                <!-- Card hasil deteksi -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardPhotoResult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="6dp"
+                    android:layout_marginBottom="12dp"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <!-- Row: nama + akurasi -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:id="@+id/tvPhotoDiseaseName"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Antraknosa (Patek)"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                tools:ignore="HardcodedText" />
+
+                            <TextView
+                                android:id="@+id/tvPhotoConfidence"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="87.3%"
+                                android:textColor="#DDFFFFFF"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                tools:ignore="HardcodedText" />
+                        </LinearLayout>
+
+                        <!-- Divider -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#33FFFFFF"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="8dp" />
+
+                        <!-- Deskripsi -->
+                        <TextView
+                            android:id="@+id/tvPhotoDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Bercak hitam cekung pada buah cabai."
+                            android:textColor="#CCFFFFFF"
+                            android:textSize="13sp"
+                            android:lineSpacingMultiplier="1.4"
+                            tools:ignore="HardcodedText" />
+
+                        <!-- Semua deteksi (jika > 1) -->
+                        <TextView
+                            android:id="@+id/tvAllDetections"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#AAFFFFFF"
+                            android:textSize="12sp"
+                            android:lineSpacingMultiplier="1.5"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="monospace"
+                            android:visibility="gone"
+                            tools:visibility="visible"
+                            tools:text="Semua deteksi:\n• Antraknosa (87.3%)\n• Layu Fusarium (45.1%)" />
+
+                        <!-- Waktu inferensi -->
+                        <TextView
+                            android:id="@+id/tvInferenceTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Waktu analisis: 120ms"
+                            android:textColor="#88FFFFFF"
+                            android:textSize="11sp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="monospace"
+                            tools:ignore="HardcodedText" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Tombol Analisis Ulang -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAnalyzeAgain"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="🔄 Analisis Ulang"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="8dp"
+                    app:backgroundTint="@color/md_theme_light_primary"
+                    app:cornerRadius="24dp"
+                    android:visibility="gone" />
+
+                <!-- Row: Share + Simpan -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnShareResult"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:text="📤 Bagikan"
+                        android:textSize="13sp"
+                        android:layout_marginEnd="6dp"
+                        app:backgroundTint="#1976D2"
+                        app:cornerRadius="24dp"
+                        android:visibility="gone" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSaveResult"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:text="💾 Simpan"
+                        android:textSize="13sp"
+                        android:layout_marginStart="6dp"
+                        app:backgroundTint="#388E3C"
+                        app:cornerRadius="24dp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+                <!-- Extra bottom space -->
+                <View android:layout_width="match_parent" android:layout_height="24dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

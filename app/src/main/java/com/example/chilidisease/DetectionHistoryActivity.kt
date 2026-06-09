@@ -18,12 +18,6 @@ import com.example.chilidisease.databinding.ActivityHistoryBinding
 import com.example.chilidisease.history.DetectionHistoryManager
 import com.example.chilidisease.history.HistoryExporter
 
-/**
- * DetectionHistoryActivity
- *
- * Menampilkan riwayat deteksi penyakit beserta statistik ringkasan.
- * Mendukung hapus per entri, hapus semua, dan ekspor CSV.
- */
 class DetectionHistoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHistoryBinding
@@ -31,16 +25,11 @@ class DetectionHistoryActivity : AppCompatActivity() {
     private lateinit var historyExporter: HistoryExporter
     private lateinit var adapter: HistoryAdapter
 
-    // ================================================================
-    // LIFECYCLE
-    // ================================================================
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Toolbar dengan tombol back
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
@@ -55,14 +44,7 @@ class DetectionHistoryActivity : AppCompatActivity() {
         loadData()
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        finish()
-        return true
-    }
-
-    // ================================================================
-    // RECYCLERVIEW
-    // ================================================================
+    override fun onSupportNavigateUp(): Boolean { finish(); return true }
 
     private fun setupRecyclerView() {
         adapter = HistoryAdapter(
@@ -76,12 +58,7 @@ class DetectionHistoryActivity : AppCompatActivity() {
         binding.recyclerHistory.adapter = adapter
     }
 
-    // ================================================================
-    // BUTTONS
-    // ================================================================
-
     private fun setupButtons() {
-        // Hapus semua
         binding.btnClearAll.setOnClickListener {
             AlertDialog.Builder(this)
                 .setTitle(getString(R.string.history_clear_confirm_title))
@@ -95,25 +72,19 @@ class DetectionHistoryActivity : AppCompatActivity() {
         }
     }
 
-    // ================================================================
-    // LOAD DATA
-    // ================================================================
-
     private fun loadData() {
         val entries = historyManager.loadAll()
         val stats   = historyManager.getStats()
 
-        // ── Update RecyclerView ──
         adapter.submitList(entries)
-        binding.tvEmpty.visibility       = if (entries.isEmpty()) View.VISIBLE else View.GONE
+        binding.tvEmpty.visibility         = if (entries.isEmpty()) View.VISIBLE else View.GONE
         binding.recyclerHistory.visibility = if (entries.isEmpty()) View.GONE  else View.VISIBLE
 
-        // ── Update stats card ──
         if (stats.totalDetections == 0) {
             binding.cardStats.visibility = View.GONE
             return
         }
-        binding.cardStats.visibility = View.VISIBLE
+        binding.cardStats.visibility   = View.VISIBLE
         binding.tvStatTotal.text       = stats.totalDetections.toString()
         binding.tvStatHealthy.text     = stats.healthyCount.toString()
         binding.tvStatAnthracnose.text = stats.anthracnoseCount.toString()
@@ -122,24 +93,14 @@ class DetectionHistoryActivity : AppCompatActivity() {
         binding.progressHealth.progress = stats.healthPercentage.toInt()
     }
 
-    // ================================================================
-    // ADAPTER
-    // ================================================================
-
     class HistoryAdapter(
         private val onDelete: (DetectionHistoryManager.HistoryEntry) -> Unit
     ) : ListAdapter<DetectionHistoryManager.HistoryEntry, HistoryAdapter.VH>(DIFF) {
 
         companion object {
             val DIFF = object : DiffUtil.ItemCallback<DetectionHistoryManager.HistoryEntry>() {
-                override fun areItemsTheSame(
-                    a: DetectionHistoryManager.HistoryEntry,
-                    b: DetectionHistoryManager.HistoryEntry
-                ) = a.id == b.id
-                override fun areContentsTheSame(
-                    a: DetectionHistoryManager.HistoryEntry,
-                    b: DetectionHistoryManager.HistoryEntry
-                ) = a == b
+                override fun areItemsTheSame(a: DetectionHistoryManager.HistoryEntry, b: DetectionHistoryManager.HistoryEntry) = a.id == b.id
+                override fun areContentsTheSame(a: DetectionHistoryManager.HistoryEntry, b: DetectionHistoryManager.HistoryEntry) = a == b
             }
         }
 
@@ -149,7 +110,6 @@ class DetectionHistoryActivity : AppCompatActivity() {
             val conf:   TextView  = v.findViewById(R.id.tvHistoryConfidence)
             val date:   TextView  = v.findViewById(R.id.tvHistoryDate)
             val delete: ImageView = v.findViewById(R.id.ivHistoryDelete)
-            // ivHistoryIcon tidak diisi teks — gunakan sebagai dekorasi warna
             val icon:   ImageView = v.findViewById(R.id.ivHistoryIcon)
         }
 
@@ -160,21 +120,34 @@ class DetectionHistoryActivity : AppCompatActivity() {
             val e   = getItem(pos)
             val ctx = vh.itemView.context
 
-            vh.label.text = e.label
+            // Tampilkan nama yang lebih ramah pengguna
+            val displayLabel = when (e.classIndex) {
+                0 -> "Antraknosa"
+                1 -> "Busuk Buah"
+                2 -> "Lalat Buah"
+                3 -> "Cercospora"
+                4 -> "Sehat"
+                else -> e.label
+            }
+            vh.label.text = displayLabel
             vh.conf.text  = e.confidencePercent
             vh.date.text  = e.dateString
 
-            val colorRes = when (e.classIndex) {
-                0    -> R.color.color_healthy
-                1    -> R.color.color_anthracnose
-                2    -> R.color.color_fusarium
-                else -> R.color.color_unknown
+            // Warna aksen per kelas (5 kelas)
+            val color = when (e.classIndex) {
+                0 -> 0xFFFF6D00.toInt()    // Oranye    — Antraknosa
+                1 -> 0xFF8B0000.toInt()    // Merah tua — Busuk_Buah
+                2 -> 0xFF2196F3.toInt()    // Biru      — Lalat_Buah
+                3 -> 0xFF9C27B0.toInt()    // Ungu      — cerocospora
+                4 -> 0xFF00C853.toInt()    // Hijau     — healthy
+                else -> 0xFF607D8B.toInt()
             }
-            val color = ContextCompat.getColor(ctx, colorRes)
             vh.accent.setBackgroundColor(color)
 
-            // Ikon emoji sebagai background tint
-            val emoji = when (e.classIndex) { 0 -> "🟢"; 1 -> "🟠"; else -> "🔴" }
+            val emoji = when (e.classIndex) {
+                0 -> "🟠"; 1 -> "🔴"; 2 -> "🔵"; 3 -> "🟣"; 4 -> "🟢"
+                else -> "⚪"
+            }
             vh.icon.contentDescription = emoji
 
             vh.delete.setOnClickListener { onDelete(e) }
